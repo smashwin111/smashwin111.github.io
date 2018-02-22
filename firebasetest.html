@@ -2,15 +2,14 @@
   <head>
     <meta charset="utf-8"/>
     <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+	<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
     <title>Firebase example</title>
   </head>
   <body>
     <h1>Firebase example</h1>
-    <pre id='data'></pre>
-    <script src="script.js"></script>
-	
+    <pre id='messageInput'></pre>
 
-	<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
 	<script>
 	  // Initialize Firebase
 	  var config = {
@@ -23,12 +22,27 @@
 	  };
 	  firebase.initializeApp(config);
 	  
-	  var ref = firebase.database().ref();                           ref.on("value", function(snapshot){
-	      output.innerHTML = JSON.stringify(snapshot.val(), null, 2);
+	  var messagesRef = new Firebase('https://vnvn-c0fb4.firebaseio.com/')
+	  var messageField = document.getElementById('messageInput');
+
+	  // Save data to firebase
+	  function savedata(){
+	    var message = messageField.value;
+
+	    messagesRef.push({fieldName:'messageField', text:message});
+	    messageField.value = '';
+	  }
+	  
+	  messagesRef.limitToLast(10).on('child_added', function (snapshot) {
+	      var data = snapshot.val();
+	      var message = data.text;
+
+	      if (message != undefined)
+	      {
+	        messageResults.value += '\n' + message;
+	      }
 	  });
-	private DatabaseReference mDatabase;
-	mDatabase = FirebaseDatabase.getInstance().getReference();
-	mDatabase.child("messages").setValue("Hello, World");
+	  
 	</script>
   </body>
 </html>
