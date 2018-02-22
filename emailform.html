@@ -1,4 +1,5 @@
 <h2>Contact Us</h2>
+
 <form action="http://www.SnapHost.com/captcha/send.aspx" id="ContactUsCaptchaWebForm" method="post" onsubmit="return ValidateForm(this);" target="_top">
 <input name="skip_WhereToSend" type="hidden" value="smashwin111@gmail.com" />
 <input name="skip_SnapHostID" type="hidden" value="G88RZ4YBBYMU" />
@@ -6,6 +7,7 @@
 <input name="skip_Subject" type="hidden" value="Contact Us Form" />
 <input name="skip_ShowUsersIp" type="hidden" value="1" />
 <input name="skip_SendCopyToUser" type="hidden" value="1" />
+  
 <script type="text/javascript">
 function ValidateForm(frm) {
 if (frm.Name.value == "") {alert('Name is required.');frm.Name.focus();return false;}
@@ -24,6 +26,7 @@ if (pos >= 0) { src = src.substr(0, pos); }
 obj.src = src + '&rad=' + date.getTime();
 return false; }
 </script>
+  
 <table border="0" cellpadding="5" cellspacing="0" width="600">
 <tr>
 <td><b>Name*:</b></td>
@@ -54,7 +57,7 @@ src="http://www.SnapHost.com/captcha/CaptchaImage.aspx?id=G88RZ4YBBYMU&ImgType=2
 <a href="#" onclick="return ReloadCaptchaImage('CaptchaImage');"><span style="font-size:12px;">reload image</span></a> </td></tr>
 </table> <br />
 * - required fields. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-<input name="skip_Submit" type="submit" value="Submit" />
+<input name="skip_Submit" type="submit" value="Submit" onclick="alert(Thank you)"/>
 </td></tr>
 </table><br />
 </form>
