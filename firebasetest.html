@@ -26,6 +26,9 @@
 	  var ref = firebase.database().ref();                           ref.on("value", function(snapshot){
 	      output.innerHTML = JSON.stringify(snapshot.val(), null, 2);
 	  });
+	private DatabaseReference mDatabase;
+	mDatabase = FirebaseDatabase.getInstance().getReference();
+	mDatabase.child("messages").setValue("Hello, World");
 	</script>
   </body>
 </html>
