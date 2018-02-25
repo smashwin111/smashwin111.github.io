@@ -56,8 +56,8 @@
       myUpdate.email = user.email
       myUpdate.displayName = user.displayName
       var personal = firebase.database().ref(user.uid);
-      var myStatuses = []
-      //myStatuses.push(personal.status)
+      myStatuses = []
+      myStatuses = myStatuses.concat(personal.status)
       var newStatus = document.getElementById("clientStatus").value;
       myStatuses.push(newStatus)
       myUpdate.status = myStatuses
