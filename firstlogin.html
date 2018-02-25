@@ -56,7 +56,7 @@
       myUpdate.email = user.email
       myUpdate.displayName = user.displayName
       var ref = firebase.database().ref(user.uid).key;
-      var status = ref.status
+      var status = ref.child("status")
       alert(status)
       myStatuses = []
       myStatuses.push.apply(myStatuses, status)    //pushes old status into myStatuses
