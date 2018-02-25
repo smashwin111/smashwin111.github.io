@@ -55,10 +55,9 @@
       var myUpdate = {}   //this object is about to be populated
       //myUpdate.email = user.email
       //myUpdate.displayName = user.displayName
-      var ref = new Firebase("https://dsnsdk-cea95.firebaseio.com/whatsmystatus/"+String(user.uid)+"/status");
+      var ref = new Firebase("https://dsnsdk-cea95.firebaseio.com/whatsmystatus/"+user.uid);
       var newStatus = document.getElementById("clientStatus").value;
-      alert(newStatus)
-      ref.push(newStatus);
+      ref.child("status").push(newStatus);
 
       //var ref = firebase.database().ref(user.uid).key;
       //var ref = firebase.database().ref(user.uid).key;
