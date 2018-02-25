@@ -9,7 +9,10 @@
 <body>
 
   <h1> Hello <span id="clientName"> </span> </h1>  
-  <img id="clientPhoto" src="">
+  <p> What is your current mood? </p>
+  <div><input type="text" id="clientStatus" maxlength="100"></div>
+  <p>Other people's moods: </p>
+  <div id="messages"> </div>
   
 </body>
 
@@ -44,7 +47,16 @@
     //user.photoURL
     //user.uid
     document.getElementById("clientName").innerHTML = user.displayName;
-    document.getElementById("clientPhoto").setAttribute("src", user.photoURL);
+    
+    function updateMyStatus(e) {
+      var myUpdate = {}   //this object is about to be populated
+      myUpdate.email = user.email
+      myUpdate.displayName = user.displayName
+      myUpdate.status = document.getElementById("clientStatus").value;
+      fb.child(user.uid).set(myUpdate);
+    }
+    var fb = firebase.database().ref('whatsmystatus');
+    document.getElementById("clientStatus").addEventListener("input", updateMyStatus)   //runs the updateMyStatus function on event
   }
   
   window.onload = login;
