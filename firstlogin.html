@@ -57,7 +57,7 @@
       myUpdate.displayName = user.displayName
       var uid = user.uid
       var personal = firebase.database().ref(uid);
-      alert(personal.value)
+      alert(personal.val())
       oldStatuses = personal.status
       alert(oldStatuses)
       myStatuses = []
