@@ -56,11 +56,9 @@
       myUpdate.email = user.email
       myUpdate.displayName = user.displayName
       var ref = firebase.database().ref(user.uid).key;
-      alert(ref)
-
-      //alert(status)
+      var status = ref.status
       myStatuses = []
-      //myStatuses.push.apply(myStatuses, status)    //pushes oldStatuses into myStatuses
+      myStatuses.push.apply(myStatuses, status)    //pushes old status into myStatuses
       var newStatus = document.getElementById("clientStatus").value;
       myStatuses.push(newStatus)                        //pushes newStatus into myStatuses
       myUpdate.status = myStatuses                      //update about to be sent has an array as its status
