@@ -9,6 +9,7 @@
 <body>
 
   <h1> Hello <span id="clientName"> </span> </h1>  
+  <img id="clientPhoto" src="">
   
 </body>
 
@@ -43,6 +44,7 @@
     //user.photoURL
     //user.uid
     document.getElementById("clientName").innerHTML = user.displayName;
+    document.getElementById("clientPhoto").setAttribute("src", user.photoURL);
   }
   
   window.onload = login;
