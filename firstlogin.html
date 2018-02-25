@@ -53,17 +53,19 @@
     
     function updateMyStatus() {
       var myUpdate = {}   //this object is about to be populated
-      myUpdate.email = user.email
-      myUpdate.displayName = user.displayName
-      var ref = firebase.database().ref(user.uid).key;
-      var status = ref.child("status")
-      alert(status)
-      myStatuses = []
-      myStatuses.push.apply(myStatuses, status)    //pushes old status into myStatuses
+      //myUpdate.email = user.email
+      //myUpdate.displayName = user.displayName
+      //var ref = firebase.database().ref(user.uid).key;
+      var ref = firebase.database().ref(user.uid)
+      //var status = ref.child("status")     //this is the problem
+      //alert(status)
+      //myStatuses = []
+      //myStatuses.push.apply(myStatuses, status)    //pushes old status into myStatuses
       var newStatus = document.getElementById("clientStatus").value;
-      myStatuses.push(newStatus)                        //pushes newStatus into myStatuses
-      myUpdate.status = myStatuses                      //update about to be sent has an array as its status
-      fb.child(user.uid).set(myUpdate);
+      //myStatuses.push(newStatus)                        //pushes newStatus into myStatuses
+      ref.child("status").push(newStatus)
+      //myUpdate.status = myStatuses                      //update about to be sent has an array as its status
+      //fb.child(user.uid).set(myUpdate);
     }
     
     function receiveUpdate(received) {
