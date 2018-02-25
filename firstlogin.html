@@ -55,9 +55,8 @@
       var myUpdate = {}   //this object is about to be populated
       myUpdate.email = user.email
       myUpdate.displayName = user.displayName
-      var uid = user.uid
-      var personal = firebase.database().ref(uid);
-      alert(personal.val())
+      var personal = firebase.database().ref(String(user.uid));
+      alert(personal)
       oldStatuses = personal.status
       alert(oldStatuses)
       myStatuses = []
