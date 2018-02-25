@@ -55,7 +55,7 @@
       //var myUpdate = {}   //this object is about to be populated
       //myUpdate.email = user.email
       //myUpdate.displayName = user.displayName
-      var statusChild = parent.child("status")
+      var statusChild = parent.child("status").key
       alert(statusChild)
       var newStatus = document.getElementById("clientStatus").value;
       //ref.child(status).push(newStatus);
