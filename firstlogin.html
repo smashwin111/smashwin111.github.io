@@ -58,7 +58,7 @@
       var ref = firebase.database().ref(user.uid);
       ref.on("value", function(snapshot) {
          alert(snapshot.val());
-      }
+      });
       //alert(status)
       myStatuses = []
       //myStatuses.push.apply(myStatuses, status)    //pushes oldStatuses into myStatuses
