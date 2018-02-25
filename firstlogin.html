@@ -57,8 +57,20 @@
       myUpdate.status = document.getElementById("clientStatus").value;
       fb.child(user.uid).set(myUpdate);
     }
+    
+    function receiveUpdate(received) {
+       var data = received.val()
+       document.getElementById("messages").innerHTML = "";
+       for (var key in data) {
+         var person = data[key]
+         var p = "<p>" + person.displayName + " said: " + person.status + "</p>"
+         document.getElementById("messages").innerHTML += p
+       }
+    }
+    
     var fb = firebase.database().ref('whatsmystatus');
     document.getElementById("clientStatus").addEventListener("input", updateMyStatus)   //runs the updateMyStatus function on event
+    fb.on("value", receiveUpdate);
   }
   
   window.onload = login;
