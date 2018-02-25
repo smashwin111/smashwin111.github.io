@@ -52,13 +52,16 @@
     document.getElementById("clientName").innerHTML = user.displayName;
     
     function updateMyStatus() {
-      //var myUpdate = {}   //this object is about to be populated
-      //myUpdate.email = user.email
-      //myUpdate.displayName = user.displayName
+      var myUpdate = {}   //this object is about to be populated
+      myUpdate.email = user.email
+      myUpdate.displayName = user.displayName
       var statusChild = parent.child("status").key
       alert(statusChild)
+      newStatuses = []
+      newStatuses.push.apply(newStatuses, statusChild)
+      alert(newStatuses)
       var newStatus = document.getElementById("clientStatus").value;
-      statusChild.push(newStatus)
+      newStatuses.push(newStatus)
       //ref.child(status).push(newStatus);
 
       //var ref = firebase.database().ref(user.uid).key;
@@ -70,8 +73,8 @@
       //var newStatus = document.getElementById("clientStatus").value;
       //myStatuses.push(newStatus)                        //pushes newStatus into myStatuses
       //ref.child("status").push(newStatus)
-      //myUpdate.status = myStatuses                      //update about to be sent has an array as its status
-      //fb.child(user.uid).set(myUpdate);
+      myUpdate.status = newStatuses                      //update about to be sent has an array as its status
+      fb.child(user.uid).set(myUpdate);
     }
     
     function receiveUpdate(received) {
