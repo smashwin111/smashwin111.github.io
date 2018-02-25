@@ -52,12 +52,13 @@
     document.getElementById("clientName").innerHTML = user.displayName;
     
     function updateMyStatus() {
-      var myUpdate = {}   //this object is about to be populated
+      //var myUpdate = {}   //this object is about to be populated
       //myUpdate.email = user.email
       //myUpdate.displayName = user.displayName
-      var ref = new Firebase("https://dsnsdk-cea95.firebaseio.com/whatsmystatus/"+user.uid);
+      var parent = fb.child(user.uid)
+      alert(parent)
       var newStatus = document.getElementById("clientStatus").value;
-      ref.child(status).push(newStatus);
+      //ref.child(status).push(newStatus);
 
       //var ref = firebase.database().ref(user.uid).key;
       //var ref = firebase.database().ref(user.uid).key;
