@@ -25,11 +25,27 @@
   };
   firebase.initializeApp(config);
   
-  function app() {
-    document.getElementById("clientName").innerHTML = "there!";
+  function login() {
+   function newLoginHappened(user) {
+     if (user) {            //if the user that was typed in exists:
+       app(user)            //then app runs with user info in it
+     } else {               //else get the user to log-in using their google acct
+       var provider = new firebase.auth.GoogleAuthProvider();
+       firebase.auth().signInWithRedirect(provider)
+     }
+   }
+   firebase.auth().onAuthStateChanged(newLoginHappened)   //run newLoginHappened function anytime new authorization
   }
   
-  window.onload = app;
+  function app(user) {
+    //user.displayName
+    //user.email
+    //user.photoURL
+    //user.uid
+    document.getElementById("clientName").innerHTML = user.displayName;
+  }
+  
+  window.onload = login;
 </script>
 
 </html>
