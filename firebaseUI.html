@@ -25,6 +25,21 @@
     <script type="text/javascript">
       // FirebaseUI config.
       var uiConfig = {
+        callbacks: {
+          signInSuccess: function(currentUser, credential, redirectUrl) {
+            // User successfully signed in.
+            // Return type determines whether we continue the redirect automatically
+            // or whether we leave that to developer to handle.
+            return true;
+          },
+          uiShown: function() {
+            // The widget is rendered.
+            // Hide the loader.
+            document.getElementById('loader').style.display = 'none';
+          }
+        },
+        // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+        signInFlow: 'popup',
         signInSuccessUrl: 'application.html',
         signInOptions: [
           // Leave the lines as is for the providers you want to offer your users.
@@ -50,5 +65,6 @@
          Your app may use that space for branding, controls and other customizations.-->
     <h1>Welcome to My Awesome App</h1>
     <div id="firebaseui-auth-container"></div>
+    <div id="loader">Loading...</div>
   </body>
 </html>
