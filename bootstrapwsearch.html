@@ -1,56 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SearchBlox Search Box</title>
-
-<!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-</head>
-<body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<style>
-.custom-search-form{
-margin-top:5px;
+<!-- this script got from www.javascriptfreecode.com coded by: Krishna Eydat-->
+<SCRIPT language=JavaScript>
+var NS4 = (document.layers);    
+var IE4 = (document.all);
+var win = window;    
+var n   = 0;
+function findInPage(str) {
+  var txt, i, found;
+  if (str == "")
+    return false;
+  if (NS4) {
+    if (!win.find(str))
+      while(win.find(str, false, true))
+        n++;
+    else
+      n++;
+    if (n == 0)
+      alert("Not found.");
+  }
+  if (IE4) {
+    txt = win.document.body.createTextRange();
+    for (i = 0; i <= n && (found = txt.findText(str)) != false; i++) {
+      txt.moveStart("character", 1);
+      txt.moveEnd("textedit");
+    }
+    if (found) {
+      txt.moveStart("character", -1);
+      txt.findText(str);
+      txt.select();
+      txt.scrollIntoView();
+      n++;
+    }
+    else {
+      if (n > 0) {
+        n = 0;
+        findInPage(str);
+      }
+      else
+        alert("Sorry, we couldn't find.Try again");
+   }
+  }
+  return false;
 }
-</style>
-<div class="container">
-<div class="row">
-<div class="col-lg-3">
+</SCRIPT>
+
+<FORM name=search onsubmit="return findInPage(this.string.value);">
+<P align=center><FONT size=3>
+<INPUT 
+style="BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; FONT-SIZE: 8pt; BORDER-LEFT: #666666 1px solid; BORDER-BOTTOM: #666666 1px solid" 
+onchange="n = 0;" size=16 name=string></FONT><BR><INPUT style="BORDER-RIGHT: #ffffff 1px solid; BORDER-TOP: #ffffff 1px solid; FONT-SIZE: 8pt; BORDER-LEFT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; FONT-FAMILY: Tahoma; BACKGROUND-COLOR: #aaaaaa" type=submit value=Search in page ><center><font size=2pt;><font family=Times New Roman;><b>
 
 
-<!-- Update the searchblox server location below in the action field-->
-<!-- Change the action to http://localhost:8080/searchblox/plugin/index.html shown below if you want faceted search results -->
-<!-- <form action="http://localhost:8080/searchblox/plugin/index.html" onsubmit="return encodeQuery()" method="get"> -->
-<form action="http://localhost:8080/searchblox/servlet/SearchServlet" onsubmit="return encodeQuery()" method="get">
+<font face="Tahoma"><a target="_blank" href="http://www.javascriptfreecode.com/"><span style="font-size: 8pt; text-decoration: none">JavaScript Free Code</span></a></font>
 
-<!--To add search parameter use the syntax as in the line below-->
-
-<!--<input type="hidden" name="col" value="2">-->
-
-<div class="input-group custom-search-form">
-<input type="text" class="form-control" name="query" value="">
-<span class="input-group-btn">
-<button class="btn btn-default" type="search">
-<span class="glyphicon glyphicon-search"></span>
-</button>
-</span>
-
-</span>
-</div>
-</form>
-</div>
-</div>
-</div>
-</body>
-</html>
+<BR> 
+</P></FORM></DIV><BR><!-- /Search-->
