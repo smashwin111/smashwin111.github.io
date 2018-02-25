@@ -55,7 +55,7 @@
       var myUpdate = {}   //this object is about to be populated
       myUpdate.email = user.email
       myUpdate.displayName = user.displayName
-      var ref = firebase.database().ref(user.uid);
+      var ref = firebase.database().ref(String(user.uid));
       ref.on("value", function(snapshot) {
          alert(snapshot.val());
       });
