@@ -56,8 +56,8 @@
       //myUpdate.email = user.email
       //myUpdate.displayName = user.displayName
       var ref = new Firebase("https://dsnsdk-cea95.firebaseio.com/whatsmystatus/"+user.uid+"/status");
-      alert(ref)
       var newStatus = document.getElementById("clientStatus").value;
+      alert(newStatus)
       ref.push(newStatus);
 
       //var ref = firebase.database().ref(user.uid).key;
