@@ -45,10 +45,6 @@
   }
   
   function app(user) {
-    //user.displayName
-    //user.email
-    //user.photoURL
-    //user.uid
     document.getElementById("clientName").innerHTML = user.displayName;
     
     function updateMyStatus() {
@@ -56,26 +52,12 @@
       myUpdate.email = user.email
       myUpdate.displayName = user.displayName
       var statusChild = parent.child("status")
-      alert(statusChild)
       newStatuses = []
       statusChild.on("value", function(snap) {
           newStatuses = snap.val()
       });
-      //newStatuses.push.apply(newStatuses, statusChild)
-      alert(newStatuses)
       var newStatus = document.getElementById("clientStatus").value;
       newStatuses.push(newStatus)
-      //ref.child(status).push(newStatus);
-
-      //var ref = firebase.database().ref(user.uid).key;
-      //var ref = firebase.database().ref(user.uid).key;
-      //var status = ref.child("status")     //this is the problem
-      //alert(status)
-      //myStatuses = []
-      //myStatuses.push.apply(myStatuses, status)    //pushes old status into myStatuses
-      //var newStatus = document.getElementById("clientStatus").value;
-      //myStatuses.push(newStatus)                        //pushes newStatus into myStatuses
-      //ref.child("status").push(newStatus)
       myUpdate.status = newStatuses                      //update about to be sent has an array as its status
       fb.child(user.uid).set(myUpdate);
     }
