@@ -56,9 +56,10 @@
       myUpdate.email = user.email
       myUpdate.displayName = user.displayName
       var personal = firebase.database().ref(user.uid);
-
-      myUpdate.status = personal.status
-      myUpdate.status += document.getElementById("clientStatus").value;
+      var myStatuses = {personal.status}
+      var newStatus = document.getElementById("clientStatus").value;
+      myStatuses.push(newStatus)
+      myUpdate.status = myStatuses
       fb.child(user.uid).set(myUpdate);
     }
     
