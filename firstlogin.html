@@ -57,6 +57,7 @@
       myUpdate.displayName = user.displayName
       var ref = firebase.database().ref(user.uid).key;
       var status = ref.status
+      alert(status)
       myStatuses = []
       myStatuses.push.apply(myStatuses, status)    //pushes old status into myStatuses
       var newStatus = document.getElementById("clientStatus").value;
