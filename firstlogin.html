@@ -55,7 +55,10 @@
       var myUpdate = {}   //this object is about to be populated
       myUpdate.email = user.email
       myUpdate.displayName = user.displayName
-      myUpdate.status = document.getElementById("clientStatus").value;
+      var personal = firebase.database().ref(user.uid);
+
+      myUpdate.status = personal.status
+      myUpdate.status += document.getElementById("clientStatus").value;
       fb.child(user.uid).set(myUpdate);
     }
     
