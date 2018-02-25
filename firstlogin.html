@@ -55,8 +55,8 @@
       //var myUpdate = {}   //this object is about to be populated
       //myUpdate.email = user.email
       //myUpdate.displayName = user.displayName
-      var parent = fb.child(user.uid)
-      alert(parent)
+      var statusChild = parent.child("status")
+      alert(statusChild)
       var newStatus = document.getElementById("clientStatus").value;
       //ref.child(status).push(newStatus);
 
@@ -86,6 +86,7 @@
     var fb = firebase.database().ref('whatsmystatus');
     document.getElementById("clientSubmit").addEventListener("click", updateMyStatus)   //runs the updateMyStatus function on event
     fb.on("value", receiveUpdate);
+    var parent = fb.child(user.uid)
   }
   
   window.onload = login;
