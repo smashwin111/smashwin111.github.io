@@ -12,6 +12,7 @@
   <p> What is your current mood? </p>
   <div>
     <input type="text" id="clientStatus" maxlength="100">
+    <input type="submit" id="clientSubmit">
   </div>
   <p>Other people's moods: </p>
   <div id="messages"> </div>
@@ -69,7 +70,7 @@
     }
     
     var fb = firebase.database().ref('whatsmystatus');
-    document.getElementById("clientStatus").addEventListener("input", updateMyStatus)   //runs the updateMyStatus function on event
+    document.getElementById("clientSubmit").addEventListener("click", updateMyStatus)   //runs the updateMyStatus function on event
     fb.on("value", receiveUpdate);
   }
   
