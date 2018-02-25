@@ -55,7 +55,7 @@
       var myUpdate = {}   //this object is about to be populated
       myUpdate.email = user.email
       myUpdate.displayName = user.displayName
-      var personal = database.ref(String(user.uid));
+      var personal = database.ref(user.uid);
       alert(personal)
       personal.on('value', function(snapshot) {
             var status = snapshot.val();
