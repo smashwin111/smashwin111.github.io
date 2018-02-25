@@ -55,15 +55,15 @@
       var myUpdate = {}   //this object is about to be populated
       myUpdate.email = user.email
       myUpdate.displayName = user.displayName
-      var personal = firebase.database().ref(String(user.uid));
-      alert(personal)
+      var personal = firebase.database().ref(user.uid).once('value');
+      alert(personal)                  //this is the problem because coming up as a link
       oldStatuses = personal.status
       alert(oldStatuses)
       myStatuses = []
-      myStatuses.push.apply(myStatuses, oldStatuses)
+      myStatuses.push.apply(myStatuses, oldStatuses)    //pushes oldStatuses into myStatuses
       var newStatus = document.getElementById("clientStatus").value;
-      myStatuses.push(newStatus)
-      myUpdate.status = myStatuses
+      myStatuses.push(newStatus)                        //pushes newStatus into myStatuses
+      myUpdate.status = myStatuses                      //update about to be sent has an array as its status
       fb.child(user.uid).set(myUpdate);
     }
     
