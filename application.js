@@ -33,9 +33,9 @@ comments.limitToLast(10).on('child_added', function(childSnapshot) {
 
   comment = childSnapshot.val();
 
-  $("#title").append(comment.title + '<br> <br>')
-  $("#remark").append(comment.remark + '<br> <br>')
-  //$("#link").append(comment.link + '<br> <br>')
+  $("#title").prepend(comment.title + '<br> <br>')
+  $("#remark").prepend(comment.remark + '<br> <br>')
+  //$("#link").prepend(comment.link + '<br> <br>')
 
   // Make the link actually work and direct to the URL provided
   //$("#link").attr("href", comment.link)
