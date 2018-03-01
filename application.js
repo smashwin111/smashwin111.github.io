@@ -19,12 +19,12 @@ var submitComment = function () {
 
   var title = $("#yourName").val();
   var remark = $("#yourComment").val();
-  var link = $("#yourLink").val();
+  //var link = $("#yourLink").val();
 
   comments.push({
     "title": title,
     "remark": remark,
-    "link": link
+    //"link": link
   });
 };
 
@@ -35,10 +35,10 @@ comments.limitToLast(10).on('child_added', function(childSnapshot) {
 
   $("#title").append(comment.title + '<br> <br>')
   $("#remark").append(comment.remark + '<br> <br>')
-  $("#link").append(comment.link + '<br> <br>')
+  //$("#link").append(comment.link + '<br> <br>')
 
   // Make the link actually work and direct to the URL provided
-  $("#link").attr("href", comment.link)
+  //$("#link").attr("href", comment.link)
 });
 
 
