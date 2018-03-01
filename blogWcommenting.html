@@ -86,7 +86,12 @@
           <label for="yourComment">Comment</label>
           <input class="form-control" id="yourComment" placeholder="Your comment" maxlength="100">
         </div>
-
+	      
+        <div class="form-group">
+          <label for="yourLink">Image source (optional)</label>
+          <input class="form-control" id="yourLink" placeholder="Your image source (optional)" maxlength="100">
+        </div>
+	      
         <!-- When you click this button, trigger the submit event on this form. -->
         <button type="submit" class="btn btn-default" onclick="alert('Thank you for submitting')">Submit</button>
 		
@@ -98,6 +103,7 @@
        <table class="table table-striped">
 	<thead>
 	  <tr>
+	    <th>Avatar</th>
 	    <th>Name</th>
 	    <th>Comment</th>
 	  </tr>
@@ -106,6 +112,7 @@
 	<tbody>
 	  <tr>
 	    <!-- This is empty for now, but it will be filled out by an event handler in application.js with the most recent recommendation data from Firebase. -->
+	    <td><img src="<p id=link></p>" width="100px"></td>
 	    <td id="title"></td>
 	    <td id="remark"></td>
 	  </tr>
