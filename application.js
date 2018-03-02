@@ -38,7 +38,7 @@ comments.limitToLast(10).on('child_added', function(childSnapshot) {
   $("#link").prepend('<img id="image">' + '<br> <br>')
 
   
-  var altWords = 'No' + '<br>' + 'image'  
+  var altWords = 'No.............. image'  
   // Make the link actually work and direct to the URL provided
   $("#image").attr("src", comment.link)
   $("#image").attr("alt", altWords) 
