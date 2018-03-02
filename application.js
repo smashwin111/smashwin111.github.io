@@ -35,11 +35,10 @@ comments.limitToLast(10).on('child_added', function(childSnapshot) {
 
   $("#title").prepend(comment.title + '<br> <br> <br> <br>')
   $("#remark").prepend(comment.remark + '<br> <br> <br> <br>')
-  $("#link").prepend('<img id="image">' + '<br> <br>')
+  $("#link").prepend('<img id="image" alt="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2000px-No_image_available.svg.png">' + '<br> <br>')
 
   // Make the link actually work and direct to the URL provided
   $("#image").attr("src", comment.link)
-  $("#image").attr("alt", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2000px-No_image_available.svg.png")
 });
 
 
