@@ -33,8 +33,8 @@ comments.limitToLast(10).on('child_added', function(childSnapshot) {
 
   comment = childSnapshot.val();
 
-  $("#title").prepend(comment.title + '<br>')
-  $("#remark").prepend(comment.remark + '<br>')
+  $("#title").prepend(comment.title + '<br> <br>')
+  $("#remark").prepend(comment.remark + '<br> <br>')
   $("#link").prepend('<img id="image">' + '<br>')
 
   
