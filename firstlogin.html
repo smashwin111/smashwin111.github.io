@@ -69,10 +69,10 @@
        var data = received.val()
        alert(data)
        document.getElementById("messages").innerHTML = "";
-       for (var key in data) {
-         var person = data[key]
-         var p = "<p>" + person.displayName + " said: " + person.status + "</p>"
-         document.getElementById("messages").innerHTML += p
+       //for (var key in data) {
+       var person = data//[key]
+       var p = "<p>" + person.displayName + " said: " + person.status + "</p>"
+       document.getElementById("messages").innerHTML += p
        }
     }
     
