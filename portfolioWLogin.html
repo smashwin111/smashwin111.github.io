@@ -162,12 +162,12 @@
             newCaptions = []
       });
       var newStatus = document.getElementById("clientStatus").value;
-      if (newStatus != null)
+      if (newStatus != "")
         newStatuses.push(newStatus)
       else
         newStatuses.push("https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg")
       var newCaption = document.getElementById("imageCaption").value;
-      if (newCaption != null)
+      if (newCaption != "")
         newCaptions.push(newCaption)
       else
         newCaptions.push("No caption")
