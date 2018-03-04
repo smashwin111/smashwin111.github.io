@@ -57,9 +57,9 @@
       statusChild.on("value", function(snap) {
           newStatuses = snap.val()
       });
-      alert(newStatuses)
       var newStatus = document.getElementById("clientStatus").value;
       newStatuses.push(newStatus)
+      alert(newStatuses)
       myUpdate.status = newStatuses                      //update about to be sent has an array as its status
       alert(myUpdate)
       fb.child(user.uid).set(myUpdate);
