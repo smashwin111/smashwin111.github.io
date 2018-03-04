@@ -57,6 +57,7 @@
       statusChild.on("value", function(snap) {
           newStatuses = snap.val()
       });
+      alert(newStatuses)
       var newStatus = document.getElementById("clientStatus").value;
       newStatuses.push(newStatus)
       myUpdate.status = newStatuses                      //update about to be sent has an array as its status
