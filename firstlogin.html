@@ -60,6 +60,7 @@
       var newStatus = document.getElementById("clientStatus").value;
       newStatuses.push(newStatus)
       myUpdate.status = newStatuses                      //update about to be sent has an array as its status
+      alert(myUpdate)
       fb.child(user.uid).set(myUpdate);
     }
     
