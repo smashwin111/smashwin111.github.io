@@ -53,7 +53,7 @@
       myUpdate.displayName = user.displayName
       alert(myUpdate)
       var statusChild = parent.child("status")
-      newStatuses = []
+      var newStatuses = []
       statusChild.on("value", function(snap) {
           newStatuses = snap.val()
       });
