@@ -117,12 +117,12 @@
 <script>
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyDaHs9ntxRH2E1eV97UHCp2xhSSev_7_vY",
-    authDomain: "dsnsdk-cea95.firebaseapp.com",
-    databaseURL: "https://dsnsdk-cea95.firebaseio.com",
-    projectId: "dsnsdk-cea95",
-    storageBucket: "dsnsdk-cea95.appspot.com",
-    messagingSenderId: "257952534169"
+    apiKey: "AIzaSyCSvoDVauh8Cb4lfu8_V0h8LVCNe3Wow8Q",
+    authDomain: "bm-mn-a614d.firebaseapp.com",
+    databaseURL: "https://bm-mn-a614d.firebaseio.com",
+    projectId: "bm-mn-a614d",
+    storageBucket: "bm-mn-a614d.appspot.com",
+    messagingSenderId: "209475158993"
   };
   firebase.initializeApp(config);
   
@@ -161,10 +161,9 @@
     
     function receiveUpdate(received) {
        var data = received.val()
-       document.getElementById("messages").innerHTML = "";
+       document.getElementById("one").src = "";
        var person = data
-       var p = "<p>" + person.displayName + " said: " + person.status + "</p>"
-       document.getElementById("messages").innerHTML += p
+       document.getElementById("one").innerHTML += person.status[0]
     }
     
     var fb = firebase.database().ref('whatsmystatus');
