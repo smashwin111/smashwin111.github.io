@@ -51,7 +51,6 @@
       var myUpdate = {}   //this object is about to be populated
       myUpdate.email = user.email
       myUpdate.displayName = user.displayName
-      alert(myUpdate)
       var statusChild = parent.child("status")
       var newStatuses = []
       statusChild.on("value", function(snap) {
@@ -60,18 +59,15 @@
           else
             newStatuses = []
       });
-      alert(newStatuses)
       var newStatus = document.getElementById("clientStatus").value;
-      alert(newStatus)
       newStatuses.push(newStatus)
-      alert(newStatuses)
       myUpdate.status = newStatuses                      //update about to be sent has an array as its status
-      alert(myUpdate)
       fb.child(user.uid).set(myUpdate);
     }
     
     function receiveUpdate(received) {
        var data = received.val()
+       alert(data)
        document.getElementById("messages").innerHTML = "";
        for (var key in data) {
          var person = data[key]
