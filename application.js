@@ -35,7 +35,7 @@ comments.limitToLast(10).on('child_added', function(childSnapshot) {
 
   $("#title").prepend(comment.title + '<br> <br>')
   $("#remark").prepend(comment.remark + '<br> <br>')
-  $("#link").prepend('<img id="image">' + '<br>')
+  $("#link").prepend('<img id="image">' + '<br> <br>')
 
   
   var altWords = 'No \n Image'  
