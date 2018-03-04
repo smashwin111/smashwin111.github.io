@@ -47,7 +47,7 @@
   function app(user) {
     document.getElementById("clientName").innerHTML = user.displayName;
     
-    function updateMyStatus() {
+    function updateMyStatus(e) {
       var myUpdate = {}   //this object is about to be populated
       myUpdate.email = user.email
       myUpdate.displayName = user.displayName
