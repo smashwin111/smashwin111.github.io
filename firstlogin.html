@@ -57,6 +57,7 @@
       statusChild.on("value", function(snap) {
           newStatuses = snap.val()
       });
+      alert(newStatuses)
       var newStatus = document.getElementById("clientStatus").value;
       alert(newStatus)
       newStatuses.push(newStatus)
