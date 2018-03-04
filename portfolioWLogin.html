@@ -61,19 +61,19 @@
   <h3>Some of my Work</h3><br>
   <div class="row">
     <div class="col-sm-3">
-      <p>Some text..</p>
+      <p id="textOne">Some text..</p>
       <img id="one" src="https://wallpaperbrowse.com/media/images/3848765-wallpaper-images-download.jpg" class="img-responsive" style="width:100%" alt="Image">
     </div>
     <div class="col-sm-3"> 
-      <p>Some text..</p>
+      <p id="textTwo">Some text..</p>
       <img id="two" src="https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg" class="img-responsive" style="width:100%" alt="Image">
     </div>
     <div class="col-sm-3"> 
-      <p>Some text..</p>
+      <p id="textThree">Some text..</p>
       <img id="three" src="https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg" class="img-responsive" style="width:100%" alt="Image">
     </div>
     <div class="col-sm-3">
-      <p>Some text..</p>
+      <p id="textFour">Some text..</p>
       <img id="four" src="https://wallpaperbrowse.com/media/images/4237670-images.jpg" class="img-responsive" style="width:100%" alt="Image">
     </div>
   </div>
@@ -82,19 +82,19 @@
 <div class="container-fluid bg-3 text-center">    
   <div class="row">
     <div class="col-sm-3">
-      <p>Some text..</p>
+      <p id="textFive">Some text..</p>
       <img id="five" src="https://www.gettyimages.com/gi-resources/images/Embed/new/embed2.jpg" class="img-responsive" style="width:100%" alt="Image">
     </div>
     <div class="col-sm-3"> 
-      <p>Some text..</p>
+      <p id="textSix">Some text..</p>
       <img id="six" src="https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2018/01/04/104928287-GettyImages-901193182.jpg?v=1515082799" class="img-responsive" style="width:100%" alt="Image">
     </div>
     <div class="col-sm-3"> 
-      <p>Some text..</p>
+      <p id="textSeven">Some text..</p>
       <img id="seven" src="https://www.gettyimages.com/gi-resources/images/Embed/new/embed2.jpg" class="img-responsive" style="width:100%" alt="Image">
     </div>
     <div class="col-sm-3">
-      <p>Some text..</p>
+      <p id="textEight">Some text..</p>
       <img id="eight" src="https://www.gettyimages.ie/gi-resources/images/Homepage/Category-Creative/UK/UK_Creative_462809583.jpg" class="img-responsive" style="width:100%" alt="Image">
     </div>
   </div>
@@ -105,9 +105,11 @@
 </footer>
 
 <h1> Hello <span id="clientName"> </span> </h1>  
-<p> What is your image source? </p>
 <div>
+  <p> What is your image source? </p>
   <input type="text" id="clientStatus" maxlength="500">
+  <p> What is the caption? </p>
+  <input type="text" id="imageCaption" maxlength="100">
   <input type="submit" id="clientSubmit">
 </div>
   
@@ -144,6 +146,7 @@
       myUpdate.email = user.email
       myUpdate.displayName = user.displayName
       var statusChild = parent.child("status")
+      var captionChild = parent.child("caption")
       var newStatuses = []
       statusChild.on("value", function(snap) {
           if (snap.val() != null) 
@@ -151,9 +154,19 @@
           else
             newStatuses = []
       });
+      var newCaptions = []
+      captionChild.on("value", function(snap) {
+          if (snap.val() != null) 
+            newCaptions = snap.val()
+          else
+            newCaptions = []
+      });
       var newStatus = document.getElementById("clientStatus").value;
       newStatuses.push(newStatus)
+      var newCaption = document.getElementById("imageCaption").value;
+      newCaptions.push(newCaption)
       myUpdate.status = newStatuses                      //update about to be sent has an array as its status
+      myUpdate.caption = newCaptions
       fb.child(user.uid).set(myUpdate);
     }
     
@@ -173,6 +186,15 @@
        document.getElementById("six").src = person.status[5]
        document.getElementById("seven").src = person.status[6]
        document.getElementById("eight").src = person.status[7]
+             
+       document.getElementById("textOne").innerHTML = person.caption[0]
+       document.getElementById("textTwo").innerHTML = person.caption[1]
+       document.getElementById("textThree").innerHTML = person.caption[2]
+       document.getElementById("textFour").innerHTML = person.caption[3]
+       document.getElementById("textFive").innerHTML = person.caption[4]
+       document.getElementById("textSix").innerHTML = person.caption[5]
+       document.getElementById("textSeven").innerHTML = person.caption[6]
+       document.getElementById("textEight").innerHTML = person.caption[7]
     }
     
     var fb = firebase.database().ref('whatsmystatus');
