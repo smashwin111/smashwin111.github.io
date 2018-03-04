@@ -78,8 +78,8 @@
     
     var fb = firebase.database().ref('whatsmystatus');
     document.getElementById("clientSubmit").addEventListener("click", updateMyStatus)   //runs the updateMyStatus function on event
-    fb.on("value", receiveUpdate);
     var parent = fb.child(user.uid)
+    parent.on("value", receiveUpdate);
   }
   
   window.onload = login;
