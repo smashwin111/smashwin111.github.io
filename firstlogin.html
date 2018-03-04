@@ -67,13 +67,10 @@
     
     function receiveUpdate(received) {
        var data = received.val()
-       alert(data)
        document.getElementById("messages").innerHTML = "";
-       //for (var key in data) {
-       var person = data//[key]
+       var person = data
        var p = "<p>" + person.displayName + " said: " + person.status + "</p>"
        document.getElementById("messages").innerHTML += p
-       //}
     }
     
     var fb = firebase.database().ref('whatsmystatus');
