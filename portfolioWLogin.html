@@ -162,9 +162,15 @@
             newCaptions = []
       });
       var newStatus = document.getElementById("clientStatus").value;
-      newStatuses.push(newStatus)
+      if (newStatus != null)
+        newStatuses.push(newStatus)
+      else
+        newStatuses.push("https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg")
       var newCaption = document.getElementById("imageCaption").value;
-      newCaptions.push(newCaption)
+      if (newCaption != null)
+        newCaptions.push(newCaption)
+      else:
+        newCaptions.push("No caption")
       myUpdate.status = newStatuses                      //update about to be sent has an array as its status
       myUpdate.caption = newCaptions
       fb.child(user.uid).set(myUpdate);
