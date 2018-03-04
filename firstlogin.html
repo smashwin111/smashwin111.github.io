@@ -51,6 +51,7 @@
       var myUpdate = {}   //this object is about to be populated
       myUpdate.email = user.email
       myUpdate.displayName = user.displayName
+      alert(myUpdate)
       var statusChild = parent.child("status")
       newStatuses = []
       statusChild.on("value", function(snap) {
