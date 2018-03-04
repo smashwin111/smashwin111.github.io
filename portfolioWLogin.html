@@ -104,5 +104,77 @@
   <p>Footer Text</p>
 </footer>
 
+<h1> Hello <span id="clientName"> </span> </h1>  
+<p> What is your current mood? </p>
+<div>
+  <input type="text" id="clientStatus" maxlength="100">
+  <input type="submit" id="clientSubmit">
+</div>
+<p>Other people's moods: </p>
+<div id="messages"> </div>
+  
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDaHs9ntxRH2E1eV97UHCp2xhSSev_7_vY",
+    authDomain: "dsnsdk-cea95.firebaseapp.com",
+    databaseURL: "https://dsnsdk-cea95.firebaseio.com",
+    projectId: "dsnsdk-cea95",
+    storageBucket: "dsnsdk-cea95.appspot.com",
+    messagingSenderId: "257952534169"
+  };
+  firebase.initializeApp(config);
+  
+  function login() {
+   function newLoginHappened(user) {
+     if (user) {            //if the user that was typed in exists:
+       app(user)            //then app runs with user info in it
+     } else {               //else get the user to log-in using their google acct
+       var provider = new firebase.auth.GoogleAuthProvider();
+       firebase.auth().signInWithRedirect(provider)
+     }
+   }
+   firebase.auth().onAuthStateChanged(newLoginHappened)   //run newLoginHappened function anytime new authorization
+  }
+  
+  function app(user) {
+    document.getElementById("clientName").innerHTML = user.displayName;
+    
+    function updateMyStatus(e) {
+      var myUpdate = {}   //this object is about to be populated
+      myUpdate.email = user.email
+      myUpdate.displayName = user.displayName
+      var statusChild = parent.child("status")
+      var newStatuses = []
+      statusChild.on("value", function(snap) {
+          if (snap.val() != null) 
+            newStatuses = snap.val()
+          else
+            newStatuses = []
+      });
+      var newStatus = document.getElementById("clientStatus").value;
+      newStatuses.push(newStatus)
+      myUpdate.status = newStatuses                      //update about to be sent has an array as its status
+      fb.child(user.uid).set(myUpdate);
+    }
+    
+    function receiveUpdate(received) {
+       var data = received.val()
+       document.getElementById("messages").innerHTML = "";
+       var person = data
+       var p = "<p>" + person.displayName + " said: " + person.status + "</p>"
+       document.getElementById("messages").innerHTML += p
+    }
+    
+    var fb = firebase.database().ref('whatsmystatus');
+    document.getElementById("clientSubmit").addEventListener("click", updateMyStatus)   //runs the updateMyStatus function on event
+    var parent = fb.child(user.uid)
+    parent.on("value", receiveUpdate);
+  }
+  
+  window.onload = login;
+</script>
+  
 </body>
 </html>
