@@ -163,7 +163,7 @@
        var data = received.val()
        //document.getElementById("one").src = "";
        var person = data
-       document.getElementById("one").src += person.status[0]
+       document.getElementById("one").src = person.status[0]
     }
     
     var fb = firebase.database().ref('whatsmystatus');
