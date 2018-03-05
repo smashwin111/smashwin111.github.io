@@ -4,7 +4,6 @@
   <title>Portfolio w Login</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -45,7 +44,7 @@
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><button type="button" id="clearCookies" onClick="mFirebaseUser.delete()"><span class="glyphicon glyphicon-log-in"></span> Logout </button></li> -->
+        <!-- <li><button><span class="glyphicon glyphicon-log-in"></span> Logout </button></li> -->
       </ul>
     </div>
   </div>
@@ -114,31 +113,7 @@
   <input type="submit" id="clientSubmit">
 </footer>
 
-<script>
-function clearListCookies()
-{   
-    var cookies = document.cookie.split(";");
-    for (var i = 0; i < cookies.length; i++)
-    {   
-        var spcook =  cookies[i].split("=");
-        deleteCookie(spcook[0]);
-    }
-    function deleteCookie(cookiename)
-    {
-        var d = new Date();
-        d.setDate(d.getDate() - 1);
-        var expires = ";expires="+d;
-        var name=cookiename;
-        //alert(name);
-        var value="";
-        document.cookie = name + "=" + value + expires + "; path=/acc/html";                    
-    }
-    window.location = ""; // TO REFRESH THE PAGE
-}  
-  
-document.getElementById("clearCookies").onclick = clearListCookies;  
-</script>
-  
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
