@@ -44,7 +44,7 @@
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><button onclick="GoogleAuth.signOut()"><span class="glyphicon glyphicon-log-in"></span> Logout </button></li> -->
+        <li><button onclick="delete_cookie(); GoogleAuth.signOut()"><span class="glyphicon glyphicon-log-in"></span> Logout </button></li> -->
       </ul>
     </div>
   </div>
@@ -112,6 +112,12 @@
   <br>
   <input type="submit" id="clientSubmit">
 </footer>
+
+<script>
+function delete_cookie(name){
+document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+</script>
   
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 <script>
