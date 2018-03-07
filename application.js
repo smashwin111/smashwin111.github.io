@@ -28,10 +28,6 @@ var submitComment = function () {
   });
 };
 
-		    <tr>
-			<td>comment.title</td>
-		    </tr>
-
 comments.limitToLast(10).on('child_added', function(childSnapshot) {
 
   comment = childSnapshot.val();
