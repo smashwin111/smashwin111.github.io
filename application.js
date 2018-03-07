@@ -28,14 +28,17 @@ var submitComment = function () {
   });
 };
 
+		    <tr>
+			<td>comment.title</td>
+		    </tr>
 
 comments.limitToLast(10).on('child_added', function(childSnapshot) {
 
   comment = childSnapshot.val();
 
-  $("#title").prepend(comment.title + '<br> <br>')
-  $("#remark").prepend(comment.remark + '<br> <br>')
-  $("#link").prepend('<img id="image">' + '<br> <br>')
+  $("#title").prepend('<tr><td>' + comment.title + '</td></tr>' + '<br> <br>')
+  $("#remark").prepend('<tr><td>' + comment.remark + '</td></tr>' + '<br> <br>')
+  $("#link").prepend('<tr><td><img id="image"></td></tr>' + '<br> <br>')
 
   
   var altWords = 'No \n Image'  
