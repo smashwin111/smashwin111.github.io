@@ -44,7 +44,7 @@
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <!-- <li><button><span class="glyphicon glyphicon-log-in"></span> Logout </button></li> -->
+        <li><button onclick="revokeAllScopes()"><span class="glyphicon glyphicon-log-in"></span> Logout </button></li>
       </ul>
     </div>
   </div>
@@ -211,6 +211,12 @@
   
   window.onload = login;
 </script>
-  
+
+<script>
+  var revokeAllScopes = function() {
+    auth2.disconnect();
+  }
+</script>
+ 
 </body>
 </html>
