@@ -1,0 +1,123 @@
+<!--Don't forget to get the jquery link too-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+
+<!-- Later, when you add firebase-->
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+
+<!--This is our template. -->
+<!--Data will be inserted in its according place, replacing the brackets.-->
+<script id="built-in-helpers-template" type="text/x-handlebars-template">
+  {{#each animals}}
+    <p>
+      The {{this.name}} says
+      {{#if this.noise}}
+        "{{this.noise}}".
+      {{else}}
+        nothing.
+      {{/if}}
+    </p>
+  {{/each}}
+  
+  {{#each people}}
+    <p>
+      {{this.name}} says
+      {{#if this.noise}}
+        "{{this.noise}}".
+      {{else}}
+        nothing.
+      {{/if}}
+    </p>
+  {{/each}}
+</script>
+
+<!--Your new content will be displayed in here-->
+<div class="content-placeholder"></div>
+<div><input id="person" type="text" placeholder="Name of person"> says <input id="saying" type="text" placeholder="What does he/she say?">.  <button onclick="alertTest(person.value, saying.value)">Submit</button></div>
+
+<script>
+	
+  // Grab the template script
+  var theTemplateScript = $("#built-in-helpers-template").html();
+
+  // Compile the template
+  var theTemplate = Handlebars.compile(theTemplateScript);
+
+  // We will call this template on an array of objects
+  var context = {
+    animals:[
+      {
+        name: "cow",
+        noise: "moooo"
+      },
+      {
+        name: "cat",
+        noise: "meow"
+      },
+      {
+        name: "fish",
+        noise: ""
+      },
+      {
+        name: "farmer",
+        noise: "Get off my property!"
+      }
+    ],
+	people:[
+		{
+			name: "Fred",
+			noise: "Hey yo, I'm Fred"
+		},
+		{
+			name: "Gregoro",
+			noise: "I am the man"
+		},
+		{
+			name: "Lily",
+			noise: "Why am I here?"
+		}			
+	]
+  };
+
+  // Pass our data to the template
+  var theCompiledHtml = theTemplate(context);
+
+  // Add the compiled html to the page
+  $('.content-placeholder').html(theCompiledHtml);
+  
+  //Here is where Firebase potential begins
+  var config = {
+      apiKey: "AIzaSyD90XsWJOANcVOu11tyrWUt0aDv0EBysX0",
+      authDomain: "newcomments-4e8a0.firebaseapp.com",
+      databaseURL: "https://newcomments-4e8a0.firebaseio.com",
+      projectId: "newcomments-4e8a0",
+      storageBucket: "",
+      messagingSenderId: "182797535899"
+  };
+
+  // Initialize your Firebase app
+  firebase.initializeApp(config);
+
+  // Reference to the comment's object in your Firebase database
+  var comments = firebase.database().ref("comments");
+
+  //I added this onclick event for user to add items to the list
+  var alertTest = function(input_name, input_noise) {
+ 	  context.people.push({name: input_name, noise: input_noise});
+	  // Pass our data to the template
+	  var theCompiledHtml = theTemplate(context);
+
+	  // Add the compiled html to the page
+	  $('.content-placeholder').html(theCompiledHtml);
+
+ 	  // Save a new comment to the database, using the input in the form
+      var title = input_name;
+      var remark = input_noise;
+
+      comments.push({
+        "title": title,
+        "remark": remark,
+      });
+  }
+	
+</script>
