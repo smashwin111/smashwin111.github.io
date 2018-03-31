@@ -34,6 +34,7 @@
 <!--Your new content will be displayed in here-->
 <div class="content-placeholder"></div>
 <div><input id="person" type="text" placeholder="Name of person"> says <input id="saying" type="text" placeholder="What does he/she say?">.  <button onclick="alertTest(person.value, saying.value)">Submit</button></div>
+<div><p id="their_name"></p> says <p id="their_saying"></p></div>
 
 <script>
 	
@@ -104,12 +105,12 @@
   //I added this onclick event for user to add items to the list
   var alertTest = function(input_name, input_noise) {
 		
- 	  //context.people.push({name: input_name, noise: input_noise});
+ 	  context.people.push({name: input_name, noise: input_noise});
 	  // Pass our data to the template
-	  //var theCompiledHtml = theTemplate(context);
+	  var theCompiledHtml = theTemplate(context);
 
 	  // Add the compiled html to the page
-	  //$('.content-placeholder').html(theCompiledHtml);
+	  $('.content-placeholder').html(theCompiledHtml);
 
  	  // Save a new comment to the database, using the input in the form
       var title = input_name;
@@ -125,8 +126,8 @@
 
 			comment = childSnapshot.val();
 
-			$("#person").prepend(comment.title + '<br> <br>')
-			$("#saying").prepend(comment.remark + '<br> <br>')
+			$("#their_name").prepend(comment.title + '<br> <br>')
+			$("#their_saying").prepend(comment.remark + '<br> <br>')
 		});
 		
   }
