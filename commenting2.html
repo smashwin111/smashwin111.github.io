@@ -63,6 +63,19 @@
       </table>
 
 <script>
+  //Here is where Firebase potential begins
+  var config = {
+      apiKey: "AIzaSyD90XsWJOANcVOu11tyrWUt0aDv0EBysX0",
+      authDomain: "newcomments-4e8a0.firebaseapp.com",
+      databaseURL: "https://newcomments-4e8a0.firebaseio.com",
+      projectId: "newcomments-4e8a0",
+      storageBucket: "",
+      messagingSenderId: "182797535899"
+  };
+
+  // Initialize your Firebase app
+  firebase.initializeApp(config);
+	
  function login() {
    function newLoginHappened(user) {
      if (user) {            //if the user that was typed in exists:
@@ -125,19 +138,6 @@
 
   // Add the compiled html to the page
   $('.content-placeholder').html(theCompiledHtml);
-  
-  //Here is where Firebase potential begins
-  var config = {
-      apiKey: "AIzaSyD90XsWJOANcVOu11tyrWUt0aDv0EBysX0",
-      authDomain: "newcomments-4e8a0.firebaseapp.com",
-      databaseURL: "https://newcomments-4e8a0.firebaseio.com",
-      projectId: "newcomments-4e8a0",
-      storageBucket: "",
-      messagingSenderId: "182797535899"
-  };
-
-  // Initialize your Firebase app
-  firebase.initializeApp(config);
 
   // Reference to the comment's object in your Firebase database
   var comments = firebase.database().ref("comments");
