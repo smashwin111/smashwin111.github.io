@@ -75,27 +75,6 @@
 
   // Initialize your Firebase app
   firebase.initializeApp(config);
-	
- function login() {
-   function newLoginHappened(user) {
-     if (user) {            //if the user that was typed in exists:
-       app(user)            //then app runs with user info in it
-     } else {               //else get the user to log-in using their google acct
-       var provider = new firebase.auth.GoogleAuthProvider();
-       firebase.auth().signInWithRedirect(provider)
-     }
-   }
-   firebase.auth().onAuthStateChanged(newLoginHappened)   //run newLoginHappened function anytime new authorization
-  }
-  
-	//If you are logged in, this happens
-  function app(user) {
-	
-  // Grab the template script
-  var theTemplateScript = $("#built-in-helpers-template").html();
-
-  // Compile the template
-  var theTemplate = Handlebars.compile(theTemplateScript);
 
   // We will call this template on an array of objects
   var context = {
@@ -132,13 +111,7 @@
 		}			
 	]
   };
-
-  // Pass our data to the template
-  var theCompiledHtml = theTemplate(context);
-
-  // Add the compiled html to the page
-  $('.content-placeholder').html(theCompiledHtml);
-
+	
   // Reference to the comment's object in your Firebase database
   var comments = firebase.database().ref("comments");
 
@@ -162,7 +135,33 @@
       });	
 
   }
+	
+ function login() {
+   function newLoginHappened(user) {
+     if (user) {            //if the user that was typed in exists:
+       app(user)            //then app runs with user info in it
+     } else {               //else get the user to log-in using their google acct
+       var provider = new firebase.auth.GoogleAuthProvider();
+       firebase.auth().signInWithRedirect(provider)
+     }
+   }
+   firebase.auth().onAuthStateChanged(newLoginHappened)   //run newLoginHappened function anytime new authorization
+  }
+  
+	//If you are logged in, this happens
+  function app(user) {
+	
+  // Grab the template script
+  var theTemplateScript = $("#built-in-helpers-template").html();
 
+  // Compile the template
+  var theTemplate = Handlebars.compile(theTemplateScript);
+
+  // Pass our data to the template
+  var theCompiledHtml = theTemplate(context);
+
+  // Add the compiled html to the page
+  $('.content-placeholder').html(theCompiledHtml);
 
 	//reading comments from database
 	comments.limitToLast(10).on('child_added', function(childSnapshot) {
