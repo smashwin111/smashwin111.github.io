@@ -145,7 +145,8 @@
       comments.push({
         "title": title,
         "remark": remark,
-      });
+      });		
+  }
 
 		//reading comments from database
 		comments.limitToLast(10).on('child_added', function(childSnapshot) {
@@ -156,7 +157,5 @@
 		  $("#says").prepend('<tr><td>says</td></tr>' + '<br> <br>')
 		  $("#remark").prepend('<tr><td>' + comment.remark + '</td></tr>' + '<br> <br>')
 		});
-		
-  }
-	
+  
 </script>
