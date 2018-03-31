@@ -75,30 +75,6 @@
 
   // Initialize your Firebase app
   firebase.initializeApp(config);
-
-  // Reference to the comment's object in your Firebase database
-  var comments = firebase.database().ref("comments");
-
-  //I added this onclick event for user to add items to the list
-  var alertTest = function(input_name, input_noise) {
-		
- 	  context.people.push({name: input_name, noise: input_noise});
-	  // Pass our data to the template
-	  var theCompiledHtml = theTemplate(context);
-
-	  // Add the compiled html to the page
-	  $('.content-placeholder').html(theCompiledHtml);
-
- 	  // Save a new comment to the database, using the input in the form
-      var title = input_name;
-      var remark = input_noise;
-
-      comments.push({
-        "title": title,
-        "remark": remark,
-      });	
-
-  }
 	
  function login() {
    function newLoginHappened(user) {
@@ -163,6 +139,29 @@
   // Add the compiled html to the page
   $('.content-placeholder').html(theCompiledHtml);
 
+  // Reference to the comment's object in your Firebase database
+  var comments = firebase.database().ref("comments");
+
+  //I added this onclick event for user to add items to the list
+  var alertTest = function(input_name, input_noise) {
+		
+ 	  context.people.push({name: input_name, noise: input_noise});
+	  // Pass our data to the template
+	  var theCompiledHtml = theTemplate(context);
+
+	  // Add the compiled html to the page
+	  $('.content-placeholder').html(theCompiledHtml);
+
+ 	  // Save a new comment to the database, using the input in the form
+      var title = input_name;
+      var remark = input_noise;
+
+      comments.push({
+        "title": title,
+        "remark": remark,
+      });	
+
+  }
 
 
 	//reading comments from database
