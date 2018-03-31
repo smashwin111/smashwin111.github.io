@@ -103,6 +103,7 @@
 
   //I added this onclick event for user to add items to the list
   var alertTest = function(input_name, input_noise) {
+		
  	  context.people.push({name: input_name, noise: input_noise});
 	  // Pass our data to the template
 	  var theCompiledHtml = theTemplate(context);
@@ -118,6 +119,16 @@
         "title": title,
         "remark": remark,
       });
+
+		//reading comments from database
+		comments.limitToLast(10).on('child_added', function(childSnapshot) {
+
+			comment = childSnapshot.val();
+
+			$("#person").prepend(comment.title + '<br> <br>')
+			$("#saying").prepend(comment.remark + '<br> <br>')
+		});
+		
   }
 	
 </script>
