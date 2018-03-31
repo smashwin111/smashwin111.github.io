@@ -39,11 +39,6 @@
 	<tr>
 	<td>
 	    <table>
-		<thead>
-		    <tr>
-			<td><strong>Name</strong></td>
-		    </tr>
-		</thead>
 		<tbody id="title">
 
 		</tbody>
@@ -51,11 +46,13 @@
 	</td>
 	<td>
 	    <table>
-		<thead>
-		    <tr>
-			<td><strong>Comment</strong></td>
-		    </tr>
-		</thead>
+		<tbody id="says">
+
+		</tbody>
+	    </table>
+	</td>
+	<td>
+	    <table>
 		<tbody id="remark">
 
 		</tbody>
@@ -155,6 +152,7 @@
 			comment = childSnapshot.val();
 
 		  $("#title").prepend('<tr><td>' + comment.title + '</td></tr>' + '<br> <br>')
+		  $("#says").prepend('<tr><td>' + ' says ' + '</td></tr>' + '<br> <br>')
 		  $("#remark").prepend('<tr><td>' + comment.remark + '</td></tr>' + '<br> <br>')
 		});
 		
