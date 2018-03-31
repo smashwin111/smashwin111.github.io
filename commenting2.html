@@ -117,7 +117,11 @@
 
   //I added this onclick event for user to add items to the list
   var alertTest = function(input_name, input_noise) {
-		
+	  // Grab the template script
+	  var theTemplateScript = $("#built-in-helpers-template").html();
+	  // Compile the template
+	  var theTemplate = Handlebars.compile(theTemplateScript);
+	  
  	  context.people.push({name: input_name, noise: input_noise});
 	  // Pass our data to the template
 	  var theCompiledHtml = theTemplate(context);
@@ -133,7 +137,6 @@
         "title": title,
         "remark": remark,
       });	
-
   }
 	
  function login() {
@@ -151,17 +154,17 @@
 	//If you are logged in, this happens
   function app(user) {
 	
-  // Grab the template script
-  var theTemplateScript = $("#built-in-helpers-template").html();
+	  // Grab the template script
+	  var theTemplateScript = $("#built-in-helpers-template").html();
 
-  // Compile the template
-  var theTemplate = Handlebars.compile(theTemplateScript);
+	  // Compile the template
+	  var theTemplate = Handlebars.compile(theTemplateScript);
 
-  // Pass our data to the template
-  var theCompiledHtml = theTemplate(context);
+	  // Pass our data to the template
+	  var theCompiledHtml = theTemplate(context);
 
-  // Add the compiled html to the page
-  $('.content-placeholder').html(theCompiledHtml);
+	  // Add the compiled html to the page
+	  $('.content-placeholder').html(theCompiledHtml);
 
 	//reading comments from database
 	comments.limitToLast(10).on('child_added', function(childSnapshot) {
