@@ -63,6 +63,20 @@
       </table>
 
 <script>
+ function login() {
+   function newLoginHappened(user) {
+     if (user) {            //if the user that was typed in exists:
+       app(user)            //then app runs with user info in it
+     } else {               //else get the user to log-in using their google acct
+       var provider = new firebase.auth.GoogleAuthProvider();
+       firebase.auth().signInWithRedirect(provider)
+     }
+   }
+   firebase.auth().onAuthStateChanged(newLoginHappened)   //run newLoginHappened function anytime new authorization
+  }
+  
+	//If you are logged in, this happens
+  function app(user) {
 	
   // Grab the template script
   var theTemplateScript = $("#built-in-helpers-template").html();
@@ -159,5 +173,8 @@
 		  $("#says").prepend('<tr><td>says</td></tr>' + '<br> <br>')
 		  $("#remark").prepend('<tr><td>"' + comment.remark + '"</td></tr>' + '<br> <br>')
 		});
-  
+  }
+	
+  window.onload = login;
+	
 </script>
