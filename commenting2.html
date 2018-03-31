@@ -75,6 +75,30 @@
 
   // Initialize your Firebase app
   firebase.initializeApp(config);
+
+  // Reference to the comment's object in your Firebase database
+  var comments = firebase.database().ref("comments");
+
+  //I added this onclick event for user to add items to the list
+  var alertTest = function(input_name, input_noise) {
+		
+ 	  context.people.push({name: input_name, noise: input_noise});
+	  // Pass our data to the template
+	  var theCompiledHtml = theTemplate(context);
+
+	  // Add the compiled html to the page
+	  $('.content-placeholder').html(theCompiledHtml);
+
+ 	  // Save a new comment to the database, using the input in the form
+      var title = input_name;
+      var remark = input_noise;
+
+      comments.push({
+        "title": title,
+        "remark": remark,
+      });	
+
+  }
 	
  function login() {
    function newLoginHappened(user) {
@@ -139,40 +163,18 @@
   // Add the compiled html to the page
   $('.content-placeholder').html(theCompiledHtml);
 
-  // Reference to the comment's object in your Firebase database
-  var comments = firebase.database().ref("comments");
 
-  //I added this onclick event for user to add items to the list
-  var alertTest = function(input_name, input_noise) {
-		
- 	  context.people.push({name: input_name, noise: input_noise});
-	  // Pass our data to the template
-	  var theCompiledHtml = theTemplate(context);
 
-	  // Add the compiled html to the page
-	  $('.content-placeholder').html(theCompiledHtml);
+	//reading comments from database
+	comments.limitToLast(10).on('child_added', function(childSnapshot) {
 
- 	  // Save a new comment to the database, using the input in the form
-      var title = input_name;
-      var remark = input_noise;
+		comment = childSnapshot.val();
 
-      comments.push({
-        "title": title,
-        "remark": remark,
-      });	
+	  $("#title").prepend('<tr><td>' + comment.title + '</td></tr>' + '<br> <br>')
 
-  }
-
-		//reading comments from database
-		comments.limitToLast(10).on('child_added', function(childSnapshot) {
-
-			comment = childSnapshot.val();
-
-		  $("#title").prepend('<tr><td>' + comment.title + '</td></tr>' + '<br> <br>')
-
-		  $("#says").prepend('<tr><td>says</td></tr>' + '<br> <br>')
-		  $("#remark").prepend('<tr><td>"' + comment.remark + '"</td></tr>' + '<br> <br>')
-		});
+	  $("#says").prepend('<tr><td>says</td></tr>' + '<br> <br>')
+	  $("#remark").prepend('<tr><td>"' + comment.remark + '"</td></tr>' + '<br> <br>')
+	});
   }
 	
   window.onload = login;
