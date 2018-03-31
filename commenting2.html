@@ -34,7 +34,35 @@
 <!--Your new content will be displayed in here-->
 <div class="content-placeholder"></div>
 <div><input id="person" type="text" placeholder="Name of person"> says <input id="saying" type="text" placeholder="What does he/she say?">.  <button onclick="alertTest(person.value, saying.value)">Submit</button></div>
-<div><p id="their_name"></p> says <p id="their_saying"></p></div>
+
+      <table>
+	<tr>
+	<td>
+	    <table>
+		<thead>
+		    <tr>
+			<td><strong>Name</strong></td>
+		    </tr>
+		</thead>
+		<tbody id="title">
+
+		</tbody>
+	    </table>
+	</td>
+	<td>
+	    <table>
+		<thead>
+		    <tr>
+			<td><strong>Comment</strong></td>
+		    </tr>
+		</thead>
+		<tbody id="remark">
+
+		</tbody>
+	    </table>
+	</td>
+	</tr>
+      </table>
 
 <script>
 	
@@ -126,8 +154,8 @@
 
 			comment = childSnapshot.val();
 
-			$("#their_name").prepend(comment.title + '<br> <br>')
-			$("#their_saying").prepend(comment.remark + '<br> <br>')
+		  $("#title").prepend('<tr><td>' + comment.title + '</td></tr>' + '<br> <br>')
+		  $("#remark").prepend('<tr><td>' + comment.remark + '</td></tr>' + '<br> <br>')
 		});
 		
   }
