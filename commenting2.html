@@ -33,7 +33,7 @@
 
 <!--Your new content will be displayed in here-->
 <div class="content-placeholder"></div>
-<div><input id="person" type="text" placeholder="Name of person"> says <input id="saying" type="text" placeholder="What does he/she say?">.  <button onclick="alertTest(person.value, saying.value)">Submit</button></div>
+<div> What do you say? <input id="saying" type="text" placeholder="What does he/she say?">.  <button onclick="alertTest(saying.value)">Submit</button></div>
 
 <!-- This table reads from firebase -->
       <table>
@@ -116,13 +116,14 @@
   var comments = firebase.database().ref("comments");
 
   //I added this onclick event for user to add items to the list
-  var alertTest = function(input_name, input_noise) {
+  var alertTest = function(input_noise) {
 	  // Grab the template script
 	  var theTemplateScript = $("#built-in-helpers-template").html();
 	  // Compile the template
 	  var theTemplate = Handlebars.compile(theTemplateScript);
 	  
  	  context.people.push({name: input_name, noise: input_noise});
+	  
 	  // Pass our data to the template
 	  var theCompiledHtml = theTemplate(context);
 
@@ -154,6 +155,8 @@
 	//If you are logged in, this happens
   function app(user) {
 	
+	  input_name = user.displayName
+	  
 	  // Grab the template script
 	  var theTemplateScript = $("#built-in-helpers-template").html();
 
