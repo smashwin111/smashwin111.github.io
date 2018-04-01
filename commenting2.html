@@ -141,13 +141,11 @@
       var title = input_name;
       var remark = input_noise;
       var dt = new Date();
-      var utcDate = dt.toUTCString();
-      var tmpDate = new Date(utcDate)
 
       comments.push({
         "title": title,
         "remark": remark,
-	"timestamp": tmpDate
+	"timestamp": dt
       });	
   }
 	
