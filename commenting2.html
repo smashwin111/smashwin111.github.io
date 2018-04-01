@@ -141,11 +141,14 @@
       var title = input_name;
       var remark = input_noise;
       var dt = new Date();
-
+      var utcDate = dt.toUTCString();
+      var date = new Date(utcDate);
+      var myDate = date.toString() // "Wed Jun 29 2011 09:52:48 GMT-0700 (PDT)"
+	  
       comments.push({
         "title": title,
         "remark": remark,
-	"timestamp": dt
+	"timestamp": myDate
       });	
   }
 	
