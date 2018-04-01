@@ -142,11 +142,12 @@
       var remark = input_noise;
       var dt = new Date();
       var utcDate = dt.toUTCString();
+      var tmpDate = new Date(utcDate)
 
       comments.push({
         "title": title,
         "remark": remark,
-	"timestamp": utcDate
+	"timestamp": tmpDate
       });	
   }
 	
@@ -187,7 +188,7 @@
 	  $("#title").prepend('<tr><td>' + comment.title + '</td></tr>' + '<br> <br>')
 	  $("#says").prepend('<tr><td>says</td></tr>' + '<br> <br>')
 	  $("#remark").prepend('<tr><td>"' + comment.remark + '"</td></tr>' + '<br> <br>')
-	  $("#timestamp").prepend('<tr><td>"' + comment.timestamp + '"</td></tr>' + '<br> <br>')
+	  $("#timestamp").prepend('<tr><td>' + comment.timestamp + '</td></tr>' + '<br> <br>')
 	});
   }
 	
