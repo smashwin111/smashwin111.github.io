@@ -59,6 +59,13 @@
 		</tbody>
 	    </table>
 	</td>
+	<td>
+	    <table>
+		<tbody id="timestamp">
+
+		</tbody>
+	    </table>
+	</td>
 	</tr>
       </table>
 
@@ -133,10 +140,13 @@
  	  // Save a new comment to the database, using the input in the form
       var title = input_name;
       var remark = input_noise;
+      var dt = new Date();
+      var utcDate = dt.toUTCString();
 
       comments.push({
         "title": title,
         "remark": remark,
+	"timestamp": utcDate
       });	
   }
 	
@@ -172,12 +182,12 @@
 	//reading comments from database
 	comments.limitToLast(10).on('child_added', function(childSnapshot) {
 
-		comment = childSnapshot.val();
+	  comment = childSnapshot.val();
 
 	  $("#title").prepend('<tr><td>' + comment.title + '</td></tr>' + '<br> <br>')
-
 	  $("#says").prepend('<tr><td>says</td></tr>' + '<br> <br>')
 	  $("#remark").prepend('<tr><td>"' + comment.remark + '"</td></tr>' + '<br> <br>')
+	  $("#timestamp").prepend('<tr><td>"' + comment.timestamp + '"</td></tr>' + '<br> <br>')
 	});
   }
 	
