@@ -1,0 +1,562 @@
+/*
+    Theme Name: Bethany
+    Theme URL: https://bootstrapmade.com/bethany-free-onepage-bootstrap-theme/
+    Author: BootstrapMade.com
+    Author URL: https://bootstrapmade.com
+*/
+
+body, h4, h2 {
+  line-height: 1.5;
+  font-family: 'Noto Serif KR';
+  overflow-x: hidden;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.section-padding {
+  padding: 60px 0px;
+}
+
+h1, h5, h6 {
+	font-family: 'Noto Serif KR';
+}
+
+h3 {
+	font-family: 'Noto Serif KR';
+	color:  #ffcc00;
+}
+
+
+/**media Queries**/
+
+.navbar-default {
+  background-color: transparent;
+}
+
+.main-header {
+  background: url('https://hashtaglegend.com/storage/app/media/2018%20Articles/December%202018/BTS.jpg') no-repeat;
+  background-size: cover;
+  min-height: 610px;
+}
+
+.bg-color {
+  background-color: RGBA(0, 0, 0, 0.5);
+}
+
+.nav>li>a {
+  padding: 0px;
+}
+
+.navbar-brand {
+  padding: 0px;
+  height: inherit;
+  font-family: 'Lato', sans-serif;
+}
+
+.navbar-default .navbar-brand {
+  color: #fff;
+  font-size: 34px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+
+
+
+
+
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+  color: #cc0000;
+  text-transform: uppercase;
+	background-color: transparent;
+}
+
+
+
+
+
+
+
+.navbar-default .navbar-nav>li>a {
+  color: #fff;
+  padding: 10px 20px;
+  text-transform: uppercase;
+	background-color: transparent;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+  color: #cc0000;
+}
+
+.navbar-fixed-top {
+  padding: 40px 0;
+  transition: all 0.5s;
+}
+
+@media (max-width: 768px) {
+	.navbar-collapse {
+		background: rgba(0, 0, 0, 0.8);
+		border-top: 0;
+	}
+}
+
+.top-nav-collapse {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 25px 0;
+}
+
+.wrapper {
+  padding: 90px 0px 130px;
+}
+
+
+
+
+
+
+.top-title {
+  z-index: 5;
+  font-size: 32px;
+  font-weight: 700;
+  color:  #ffcc00;
+  line-height: 38px;
+  letter-spacing: 4px;
+  opacity: 1;
+  text-transform: uppercase;
+}
+
+
+
+
+
+
+.sub-title {
+  font-size: 50px;
+  font-weight: 700;
+  color: white;
+  line-height: 71px;
+  letter-spacing: 4px;
+  opacity: 1;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: 123px;
+  font-weight: 700;
+  color: white;
+  line-height: 88px;
+  letter-spacing: 4px;
+  opacity: 1;
+  text-transform: uppercase;
+  padding: 25px 0px;
+}
+
+
+
+
+
+
+
+.btn-submit {
+  background: #ffcc00;
+  border: 0px;
+  display: inline-block;
+  font-size: 16px;
+  text-transform: uppercase;
+  padding: 10px 40px;
+  font-weight: normal;
+  border-radius: 0px;
+  letter-spacing: 1px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -ms-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  margin-top: 25px;
+  border: 2px solid white;
+}
+
+
+
+
+
+
+.btn-submit:hover {
+  background: #cc0000;
+}
+
+/****/
+
+#cta-1 {
+  padding: 20px 0px;
+  background:white;
+}
+
+
+
+
+
+
+
+.cta-info {
+  border: 5px solid #cc0000;
+  padding: 40px 0px;
+}
+
+
+
+
+
+
+.cta-info h3 {
+  font-size: 45px;
+}
+
+.dec-tec {
+  font-size: 34px;
+}
+
+/****/
+
+
+
+
+
+
+
+
+
+#feature {
+  background-color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+.head-title {
+  color: grey;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+
+
+
+
+.botm-line {
+  background-color: grey;
+  width: 34px;
+  height: 3px;
+  display: inline-block;
+}
+
+
+
+
+
+.section-title:hover .botm-line {
+  width: 70px;
+  /* For Safari 3.1 to 6.0 */
+  -webkit-transition-property: width;
+  -webkit-transition-duration: 2s;
+  -webkit-transition-timing-function: linear;
+  -webkit-transition-delay: 1s;
+  /* Standard syntax */
+  transition-property: width;
+  transition-duration: 2s;
+  transition-timing-function: linear;
+  transition-delay: 1s;
+}
+
+p {
+  color: grey;
+}
+
+.icon {
+  position: relative;
+  height: 48px;
+  width: 48px;
+  float: left;
+  margin-top: 14px;
+  margin-bottom: 20px;
+}
+
+.icon i {
+  font-size: 35px;
+}
+
+.icon-text {
+  margin-left: 73px;
+  padding: 0px 25px 25px 0px;
+}
+
+h3.txt-tl {
+  font-size: 30px;
+  line-height: 1.35;
+}
+
+/****/
+
+.parallax {
+  background-attachment: fixed;
+  background-repeat: repeat-y;
+  background-position: center center;
+}
+
+.bg-image-2 {
+  background: url('../img/cta-banner.jpg') no-repeat center fixed;
+  -webkit-background-size: 100% auto;
+  -moz-background-size: 100% auto;
+  -o-background-size: 100% auto;
+  background-size: 100% auto;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.section {
+  position: relative;
+  padding: 88px 0 67px 0;
+  display: block;
+}
+
+.cta-txt h3 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.cta-txt p {
+  color: #fff;
+}
+
+/****/
+
+.portfolio-box {
+  margin-bottom: 15px;
+}
+
+
+
+#portfolio {
+	background-color: white;
+}
+
+.padding-right-zero {
+  padding-right: 0px;
+}
+
+#contact {
+  background-color: white;
+}
+
+.validation {
+  color: red;
+  display: none;
+  margin: 0 0 20px;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+#sendmessage {
+  color: green;
+  border: 1px solid green;
+  display: none;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+#errormessage {
+  color: red;
+  display: none;
+  border: 1px solid red;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+#sendmessage.show, #errormessage.show, .show {
+  display: block;
+}
+
+.black {
+  color: #000 !important;
+  font-weight: 600;
+}
+
+.btn-send {
+  border-radius: 0px;
+  color: #000;
+  background-color: #cc0000;
+}
+
+
+
+
+
+
+
+
+
+
+a, a:hover {
+  color: #cc0000;
+}
+
+
+
+
+
+
+
+
+.cont-title {
+  font-size: 24px;
+  padding: 15px 0px;
+}
+
+.location-info p span {
+  display: inline-block;
+}
+
+.location-info p span {
+  width: 40px;
+  font-size: 24px;
+  color: #666;
+  vertical-align: middle;
+}
+
+.location-info p {
+  margin-bottom: 5px;
+}
+
+.location-info p {
+  font-size: 18px;
+  line-height: 32px;
+  color: #000;
+}
+
+.contact-icon-container {
+  position: absolute;
+  top: -38px;
+  right: 0;
+  padding-right: 20px;
+  font-size: 320px;
+  color: #555;
+  line-height: 300px;
+  -ms-transform: rotate(20deg);
+  -moz-transform: rotate(20deg);
+  -webkit-transform: rotate(20deg);
+  transform: rotate(20deg);
+}
+
+/****/
+
+#footer {
+  background-color: grey;
+  padding: 10px 0px;
+}
+
+.footer-copyright {
+  color: white;
+  line-height: 32px;
+  text-align: center;
+}
+
+.footer-social {
+  float: center;
+}
+
+.footer-social a {
+  font-size: 18px;
+  color: #33ccff;
+}
+
+.link-dec, .link-dec:hover {
+  color: #33ccff;
+}
+
+/****/
+
+@media (min-width: 451px) and (max-width: 900px) {
+  .section-title {
+    margin-bottom: 15px;
+  }
+}
+
+@media (min-width: 20px) and (max-width: 450px) {
+  .navbar-toggle:hover, .navbar-toggle {
+    background-color: #fff;
+    color: #000;
+  }
+  .navbar-toggle {
+    margin-top: 0px;
+  }
+  .navbar-default .navbar-nav>li>a {
+    text-align: center;
+  }
+  .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+  }
+  .top-title {
+    font-size: 25px;
+  }
+  .title {
+    font-size: 50px;
+  }
+  .sub-title {
+    font-size: 30px;
+  }
+  .footer-copyright {
+    text-align: center;
+  }
+  .padding-right-zero {
+    padding-right: 15px;
+  }
+  .section-title {
+    margin-bottom: 15px;
+  }
+  .cta-txt h3 {
+    font-size: 28px;
+  }
+  body {
+    font-size: 14px;
+  }
+  h3.txt-tl {
+    font-size: 20px;
+  }
+}
+
+/****/
