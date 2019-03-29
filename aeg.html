@@ -11,25 +11,64 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <style>
     /* Add a gray background color and some padding to the footer */
+	body {
+		background: linear-gradient(to right, rgba(100,200,100,0.5), orange);
+		font-family: "Josefin Sans";
+	}
+	
     footer {
-      background-color: #f2f2f2;
+	  background: linear-gradient(to right, rgba(200,0,0,0.6), rgba(0,0,200,0.6));
       padding: 25px;
     }
-
+	
     .carousel-inner img {
       width: 100%; /* Set width to 100% */
-      min-height: 200px;
+      /*min-height: 200px;*/
     }
+	.navbar {
+		background:	rgba(100,150,100,0.2);
+	}
 	.navbar-header img {
-		width: 75px;
+		width: 20%;
+		margin-top: -2%;
+	}
+	.active a {
+		background: rgba(100,50,100,0.1) !important;
 	}
 	.carousel-caption {
-		color: rgba(250, 250, 200, 0.8);
+		color: rgba(255, 220, 220, 1.0);
 		font-family: 'Josefin Sans', sans-serif;
 		font-size: 24px;
+		font-weight: 900;
+		background: rgba(100,150,100,0.5);
+		border-radius: 100px;
+	    max-width: 90%;
+		width: 90%;
+		left: 5%;
 	}
+	#myCarousel .carousel-caption{
+		top: 50%;
+	}
+
+	#myCarousel2 .carousel-caption{
+		top: 5%;
+		font-size: 1.5em;
+		background: transparent;
+		color: rgba(155, 120, 120, 1.0);
+		overflow: auto;
+	}
+
 	.carousel-caption h2 {
 		font-size: 36px;
+		font-weight: 900;
+		margin-top: -0%;
+	}
+	.carousel-caption p {
+		margin: -1% 5%;
+	}
+
+	.well {
+		background: rgba(200,200,100,0.5);
 	}
 	.well p {
 		font-family: "Josefin Sans";
@@ -37,6 +76,13 @@
 	}
 	.well img {
 		width: 100%;
+	}
+	.carousel-control {
+		padding: 0;
+		margin: 0;
+	} 
+	#contact {
+		font-size: 2em;
 	}
     /* Hide the carousel text when the screen is less than 600 pixels wide */
     @media (max-width: 600px) {
@@ -46,12 +92,19 @@
 	  .carousel-caption h2 {
 		  font-size: 18px;
 	  }
+  	  #myCarousel2 .carousel-caption{
+  		font-size: 1.2em;
+  	  }
+	  #contact {
+		  font-size: 1.2em;
+		  margin: 0 1%;
+	  }
     }
   </style>
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -63,13 +116,11 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Projects</a></li>
-        <li><a href="#">Contact</a></li>
+        <li class="active"><a href="#myCarousel">Home</a></li>
+        <li><a href="#contact">Info & Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li></li>
       </ul>
     </div>
   </div>
@@ -77,13 +128,16 @@
 
 <div class="container">
 <div class="row">
+  <div class="col-sm-4">
+    <div class="well">
+      <p>American Education Gateway <img src="logo.png"></p>
+    </div>
+	<div class="well">
+		<p>Bridging the gap between Indian secondary school and American universities<img src="sidebar1.JPG" style="width: 100%"></p>
+	</div>
+  </div>
   <div class="col-sm-8">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-      </ol>
 
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
@@ -114,84 +168,60 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-  </div>
-  <div class="col-sm-4">
-    <div class="well">
-      <p>American Education Gateway <img src="logo.png"></p>
+	
+	<br><br>
+	
+    <div id="myCarousel2" class="carousel slide" data-ride="carousel">
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+		<br><br><br><br><br>
+          <div class="carousel-caption">
+            <p>"Oxford [High School] has been a place that I can happily say is very much like my second home to me now where people have a welcoming heart and a smile to greet you with. Not to mention about how drastically one's knowledge increases in this healthy competitive environment."<small> ~Sahil K., student</small></p>
+          </div>      
+        </div>
+
+        <div class="item">
+		<br><br><br><br><br>
+          <div class="carousel-caption">
+            <p>"Oxford [High School] International program has been one of those opportunities that you come through that completely changes the course of your life for the good. Being in the US helps you to get on the same time line for the college applications as a US citizen and makes it a lot easier for you to apply to a college here." <small> ~Vinamr A., student </small></p>
+          </div>      
+        </div>
+      </div>
+
+      <!-- Left and right controls -->
+      <a class="left carousel-control" href="#myCarousel2" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel2" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
-	<div class="well">
-		<p>Bridging the gap between Indian secondary school and American universities<img src="sidebar1.JPG" style="width: 100%"></p>
-	</div>
   </div>
+
 </div>
 <hr>
 </div>
 
-<div class="container text-center">    
+<div class="container text-center" id="contact">    
   <h3>What We Do</h3>
+  <div class="row">
+	  <p>If accepted, an Indian student is afforded one year at an American high school in order to accalamate to and prepare for the American university admissions process as well as American culture.</p>
+  </div>
   <br>
   <div class="row">
-    <div class="col-sm-3">
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Current Project</p>
-    </div>
-    <div class="col-sm-3"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Project 2</p>    
-    </div>
-    <div class="col-sm-3">
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-    </div>  
+	 <p>For more information, contact Dharmvir Gehlaut at AmericanEducationGateway3@gmail.com</p>
   </div>
   <hr>
 </div>
 
-<div class="container text-center">    
-  <h3>Our Partners</h3>
-  <br>
-  <div class="row">
-    <div class="col-sm-2">
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Partner 1</p>
-    </div>
-    <div class="col-sm-2"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Partner 2</p>    
-    </div>
-    <div class="col-sm-2"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Partner 3</p>
-    </div>
-    <div class="col-sm-2"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Partner 4</p>
-    </div> 
-    <div class="col-sm-2"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Partner 5</p>
-    </div>     
-    <div class="col-sm-2"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Partner 6</p>
-    </div> 
-  </div>
-</div><br>
+<br>
 
 <footer class="container-fluid text-center">
-  <p>Footer Text</p>
+  <p>&copy;American Education Gateway 2019</p>
 </footer>
 
 </body>
