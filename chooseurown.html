@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<head>
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <title>Anna Dowlin</title>
+  <style>
+    body {
+      text-align: center;
+      background: url("http://dash.ga.co/assets/anna-bg.png");
+      background-size: cover;
+      background-position: center;
+      color: white;
+      font-family: helvetica;
+    }
+    p {
+      font-size: 22px;
+    }
+    input {
+      border: 0;
+      padding: 10px;
+      font-size: 18px;
+    }
+    input[type="submit"] {
+      background: red;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <p id=cool></p>
+  <input id="whatever">
+  <input type="submit" onclick="submit()">
+
+  
+  <script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyBjLZuE7wy1tULqRxqqFQ9yBjIr7b23l7A",
+	    authDomain: "userinfo-304df.firebaseapp.com",
+	    databaseURL: "https://userinfo-304df.firebaseio.com",
+	    projectId: "userinfo-304df",
+	    storageBucket: "userinfo-304df.appspot.com",
+	    messagingSenderId: "769534478058"
+	  }
+	  firebase.initializeApp(config)
+
+	  var stuff = firebase.database().ref("stuff")
+
+	  alert(stuff)
+
+	  // Save a new comment to the database, using the input in the form
+	  function save() {
+
+	    var something = JSON.stringify(info,null,4)
+
+	    stuff.push(something)
+		 
+		alert(stuff)
+	  }
+	  
+
+
+
+	  info = {
+
+	  }
+	 
+	questions = {
+      start: "Choose cave or beach.",
+      cave: "In the cave, a dragon streams fire at you. Fight it or go back to beach (fight or beach)?",
+	  beach: "The beach is cold and you need to make a fire before nightfall or go further (fire or further)?",
+	  fight: "You fight the dragon but the dragon wins. You lose.",
+	  further: "You go further but the night gets cold and you lose.",
+	  fire: "You build a fire and survive long enough to get rescued. You win.",
+	  }
+
+    document.getElementById("cool").innerHTML = questions.start
+
+	function submit() {
+		  prompt = document.getElementById("cool")
+		  whatever = document.getElementById("whatever")
+		  if (prompt.innerHTML == questions.start && whatever.value == "cave") {
+			  prompt.innerHTML = questions.cave 
+			  whatever.value = ""
+			  info.choice1  = "cave"
+		  }
+		  else if ((prompt.innerHTML == questions.cave || prompt.innerHTML == questions.start) && whatever.value == "beach") {
+			  prompt.innerHTML = questions.beach 
+			  whatever.value = ""
+			  info.choice2 = "beach"
+		  } 
+		  if (Object.keys(info).length == 2) {
+		  	alert(JSON.stringify(info,null,4))
+			save()
+		  }
+	  }
+	  
+	  
+	    
+  </script>
+  
+
+</body>
