@@ -46,16 +46,9 @@
 
 	  var stuff = firebase.database().ref("stuff")
 
-	  alert(stuff)
-
 	  // Save a new comment to the database, using the input in the form
 	  function save() {
-
-	    var something = JSON.stringify(info,null,4)
-
-	    stuff.push(something)
-		 
-		alert(stuff)
+	    stuff.push(info)
 	  }
 	  
 
