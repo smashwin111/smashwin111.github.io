@@ -41,6 +41,7 @@ function draw() {
   text("time: " + time.toFixed(0), 50, 100)
   //x = x + 1
   //y = y + 1
+  text("touch.x: " + touches[0].x,50,50)
   
   fill(50)
   circle(x*s,y,40*s)
