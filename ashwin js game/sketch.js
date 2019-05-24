@@ -45,18 +45,24 @@ function draw() {
   fill(50)
   circle(x*s,y,40*s)
   
-  if (keyIsDown(LEFT_ARROW)) {
-    x = x-4
+  if (width > 350) {
+	  if (keyIsDown(LEFT_ARROW)) {
+	    x = x-4
+	  }
+	  if (keyIsDown(RIGHT_ARROW)) {
+	    x = x+4
+	  }
+	  if (keyIsDown(UP_ARROW)) {
+	    y = y-4
+	  }
+	  if (keyIsDown(DOWN_ARROW)) {
+	    y = y+4
+	  }
   }
-  if (keyIsDown(RIGHT_ARROW)) {
-    x = x+4
-  }
-  if (keyIsDown(UP_ARROW)) {
-    y = y-4
-  }
-  if (keyIsDown(DOWN_ARROW)) {
-    y = y+4
-  }
+  else {
+	x = mouseX
+	y = mouseY
+	  }
     
   fill(0,255,0)
   circle(x2*s, y2, 30*s)
