@@ -67,8 +67,8 @@ function draw() {
 	  }
   }
   else {			//if someone is touching the touch screen
-	x = touches[0].x + 50
-	y = touches[0].y + 50
+	x = touches[0].x + 150
+	y = touches[0].y 
 	  }
     
   fill(0,255,0)
