@@ -3,7 +3,7 @@ html, body {
   padding: 0;
   position: fixed;    
   overflow: hidden;    
-  /* overscroll-behavior-y: none; */  
+  overscroll-behavior-y: contain; 
 }
 canvas {
   display: block;
