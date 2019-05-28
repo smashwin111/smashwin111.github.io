@@ -49,7 +49,7 @@ function draw() {
   fill(50)
   circle(x*s,y,40*s)
   
-  if (width > 350) {
+  if (touches.length == 0) {    //if someone is touching the touch screen
 	  if (keyIsDown(LEFT_ARROW)) {
 	    x = x-4
 	  }
@@ -63,9 +63,9 @@ function draw() {
 	    y = y+4
 	  }
   }
-  else {
-	x = mouseX
-	y = mouseY
+  else {			//if no one is touching the touch screen (or there is no touch screen)
+	x = touches[0].x
+	y = touches[0].y
 	  }
     
   fill(0,255,0)
