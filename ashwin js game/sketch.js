@@ -172,6 +172,7 @@ function generate_alltime_leaderboard() {
 
 generate_alltime_leaderboard()
 
+/*
 function preventPullToRefresh(element) {
     var prevent = false;
 
@@ -191,3 +192,4 @@ function preventPullToRefresh(element) {
 }
 
 preventPullToRefresh("html") // pass #id or html tag into the method
+*/
