@@ -41,10 +41,13 @@ function draw() {
   text("time: " + time.toFixed(0), 50, 100)
   //x = x + 1
   //y = y + 1 
+	  
+  /* touch test
   text("touches: ", 50, 40)
   if (touches.length > 0) {
   	text(touches[0].x,50,50)
   }
+  */
 	  
   fill(50)
   circle(x*s,y,40*s)
