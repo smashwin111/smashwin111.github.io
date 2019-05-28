@@ -1,7 +1,8 @@
 html, body {
   margin: 0;
   padding: 0;
-  overscroll-behavior: none;
+  position: fixed;    //added to fix overscroll behavior on mobile
+  overflow: hidden;    //added to fixe overscroll behavior on mobile
 }
 canvas {
   display: block;
