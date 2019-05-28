@@ -1,9 +1,9 @@
 html, body {
   margin: 0;
   padding: 0;
-  //position: fixed;    //added to fix overscroll behavior on mobile
-  //overflow: hidden;    //added to fixe overscroll behavior on mobile
-  //overscroll-behavior-y: none;    //added to disable pull-to-refresh on mobile chrome???
+  //position: fixed;    
+  //overflow: hidden;    
+  //overscroll-behavior-y: none;    
 }
 canvas {
   display: block;
