@@ -14,7 +14,7 @@ def leaderboard(name, score, fileName):
             #if so, update his/her high score if it is higher than previous high score
             if int(score) > int(words[i+1]):
                 words[i+1] = score
-                found = True
+            found = True
         i = i + 1
 
     #otherwise, add name to list along with score
