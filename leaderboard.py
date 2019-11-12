@@ -1,7 +1,7 @@
 
 def leaderboard(name, score, fileName):
 
-    f = open(fileName, "r")
+    f = open(fileName, "r+")
 
     #read and split the current txt file into its constituent words
     words = f.read().split()
