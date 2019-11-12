@@ -1,7 +1,18 @@
 
+import os.path
+
 def leaderboard(name, score, fileName):
 
-    f = open(fileName, "r+")
+    #if the player input more than their first name, only the first name is used
+    name = name.split()[0]
+
+    #if the file doesn't already exist, create it (can only be done in write mode?)
+    if not os.path.exists(fileName):
+        f = open(fileName, "w")
+        f.close()       
+
+    #open the file to extract its contents (if there is contents)
+    f = open(fileName, "r")
 
     #read and split the current txt file into its constituent words
     words = f.read().split()
@@ -55,6 +66,7 @@ def leaderboard(name, score, fileName):
     #read out the new txt file
     f = open(fileName, "r")
     print(f.read())
+
 
 
 
