@@ -1,4 +1,4 @@
-//Created by rcastro2
+#Created by rcastro2
 
 import math,sys
 from pygame.locals import *
