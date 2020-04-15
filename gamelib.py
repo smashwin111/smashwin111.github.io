@@ -1,6 +1,6 @@
 #Created by rcastro2
 
-import math,sys
+import pygame,math,sys
 from pygame.locals import *
 from math import *
 from random import randint
