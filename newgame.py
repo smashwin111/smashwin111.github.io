@@ -89,32 +89,6 @@ class Image(object):
         self.rect = pygame.Rect(self.left,self.top,self.width,self.height)
         self.left, self.top, self.right, self.bottom  = self.x-self.width/2,self.y-self.height/2, self.x + self.width/2, self.y + self.height/2
 
-
-
 ###################################################################
 
-#main program
-game = Game(1000,500,"Game")
 
-user = Image("user_rectangle.png", game)
-user.width = 50
-user.height = 50
-
-while game.over == False:
-    game.processInput()
-    game.screen.fill((255,0,0))
-
-    
-
-    user.draw()
-
-    if keys.Pressed[K_RIGHT]:
-        user.x = user.x + 5
-
-    if keys.Pressed[K_ESCAPE]:
-        game.over = True
-
-    game.update(60)
-
-
-pygame.quit()
