@@ -1,3 +1,4 @@
+# ----------------------------------------------------------------
 # Begin the main processing loop.
 
 #Day 3 starts here
@@ -38,7 +39,7 @@ while True:
         else:
             if light_level is not None:
                 if light_level < 1:
-                    uart.write("Turn on lights\n")
+                    uart.write("TOO DARK!!!\n")
                     time.sleep(1.0)
 
             if uart.in_waiting:
@@ -76,3 +77,4 @@ while True:
                         if packet.button == ButtonPacket.BUTTON_1:
                             for i in range(0, 10):
                                 cp.pixels[i] = (0,0,0)
+
