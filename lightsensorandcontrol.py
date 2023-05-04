@@ -1,4 +1,4 @@
-#Setup from Days 1 and 2 above
+# Setup from Days 1 and 2 above
 # ----------------------------------------------------------------
 # Begin the main processing loop.
 
