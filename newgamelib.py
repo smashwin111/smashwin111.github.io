@@ -106,6 +106,7 @@ class Image(object):
         self.rect = pygame.Rect(self.left, self.top, self.width, self.height)
         self.left, self.top, self.right, self.bottom = self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
 
+##########################################################################
 
 class Animation(Image):
     def __init__(self,
