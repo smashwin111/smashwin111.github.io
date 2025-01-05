@@ -35,6 +35,12 @@
 	text.setAttribute("scale", "1.5 1.5 1.5")
 	text.setAttribute("position", `-1.0 1.0 -0.5`)
 
+	//for MOBILE DEVICE controls
+	let message = "TAP/CLICK"
+	let touchingNow = false
+	//END OF mobile device let statements
+
+
 
 	window.onload = function() {
 
@@ -45,6 +51,33 @@
 		enemies.push(new Enemy(x=0, z=-3.5, v=0.01, direction="x", range=1.5, rotation=0, "orange"))
 
 		coins.push(new Coin(x=0, z=-4.5))
+
+
+		//touching mobile device screen continues: FORWARD
+		window.addEventListener("touchstart", function(event) {
+			if (message == "") {
+				touchingNow = true
+				event.preventDefault()
+			}
+		}, { passive: false })
+
+		//touching mobile device screen ends: BACKWARD
+		window.addEventListener("touchend", function(event) {
+			touchingNow = false
+			if (message == "") {
+				let angle = camera.getAttribute("rotation") 
+				let changeX = 0.25 * Math.sin(angle.y * Math.PI / 180)
+				let changeZ = 0.25 * Math.cos(angle.y * Math.PI / 180) 
+				cameraPos.x += 1.5*changeX; 
+				cameraPos.z += 1.5*changeZ;
+				event.preventDefault()
+			}
+			else {
+				message = ""
+			}
+		}, { passive: false })
+
+
 
 		//keyboard toggle between birdseye view and street view
 		document.addEventListener('keydown', function(event) {
@@ -68,7 +101,22 @@
 			wall.blocksYou()
 		}
 
+		//mobile device: MOVE FORWARD
+		if (touchingNow == true) {
+			let angle = camera.getAttribute("rotation") 
+			let changeX = 0.25 * Math.sin(angle.y * Math.PI / 180)
+			let changeZ = 0.25 * Math.cos(angle.y * Math.PI / 180) 
+			cameraPos.x -= changeX/4; 
+			cameraPos.z -= changeZ/4; 
+		}
 
+
+		if (coins.every(coin => coin.collected==true)) {
+		    cameraFinalX = cameraPos.x
+		    cameraFinalZ = cameraPos.z
+		    game_over()
+		    return
+		}
 
 		for (let enemy of enemies) {
 			enemy.move()
@@ -100,6 +148,15 @@
 
 	}
 
+
+
+	function game_over() {
+	  cameraPos.x = cameraFinalX
+	  cameraPos.z = cameraFinalZ
+ 	  text.setAttribute("value", "Congrats!")
+  
+	  setTimeout(game_over, 10)
+	}
 
 
 
@@ -320,4 +377,5 @@
 </body>
 
 </html>
+
 
