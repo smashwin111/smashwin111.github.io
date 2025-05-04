@@ -209,7 +209,7 @@ setPersistence(auth, browserSessionPersistence)
 		  });
 		  onValue(ref(db, "/article "+i+"/userList"), (snapshot) => {
 			    let data = snapshot.val();
-			    console.log("userList " i + ": " + data)
+			    console.log("userList " + i + ": " + data)
 			    //numLikes[i].innerHTML = data
 		  });
 
