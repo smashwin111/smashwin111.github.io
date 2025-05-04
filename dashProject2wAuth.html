@@ -118,7 +118,7 @@
 
     googleSignInButton.addEventListener('click', () => {
         const provider = new GoogleAuthProvider();
-        auth.signInWithPopup(provider)
+        signInWithPopup(auth, provider)
             .then((result) => {
                 // User signed in successfully.
                 const user = result.user;
