@@ -22,7 +22,7 @@
       margin: 40px 0px 0px 0px;
       border: 7px solid white;
       border-radius: 20px;
-	  width: 300px;
+	  width: 200px;
     }
     ul {
       padding: 10px;
@@ -134,13 +134,15 @@
             });
     });
 
+var userIn = false
+	  
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
     const uid = user.uid;
     console.log(uid)
-    return(uid)
+    userIn = true
     // ...
   } else {
     // User is signed out
@@ -184,7 +186,7 @@ setPersistence(auth, browserSessionPersistence)
   	  }
 
 	  function Like(i) {
-		  if (uid) {
+		  if (userIn) {
 			  const numberLikes = parseInt(numLikes[i].innerHTML) + 1
 			  set(ref(db, "article " + i), {
 				  numLikes: numberLikes,
