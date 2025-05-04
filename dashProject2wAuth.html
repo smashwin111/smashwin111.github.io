@@ -86,7 +86,7 @@
 	  // https://firebase.google.com/docs/web/setup#available-libraries
 	  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 
-	  import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js";
+	  import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithRedirect } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js";
 
 	  // Your web app's Firebase configuration
 	  const firebaseConfig = {
@@ -109,6 +109,10 @@
 	  const provider = new GoogleAuthProvider();
 
 	  const auth = getAuth();
+
+	  signInWithRedirect(auth, provider);
+
+	  /*
 	  signInWithPopup(auth, provider)
 	    .then((result) => {
 	      // This gives you a Google Access Token. You can use it to access the Google API.
@@ -128,6 +132,7 @@
 	      const credential = GoogleAuthProvider.credentialFromError(error);
 	      // ...
 	    });
+	  */
 
 
 	  const numLikes = document.querySelectorAll('.numLikes')
