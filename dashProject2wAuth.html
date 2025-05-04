@@ -145,7 +145,8 @@
     });
 
 //var userIn = false
-
+var userLists = [[], [], []]
+	  
 	  
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -209,11 +210,15 @@ setPersistence(auth, browserSessionPersistence)
 
   	  }
 
+	  
+	  
 	  function Like(i) {
 		  if (UID != "") {
+			  userLists[i].push(UID)
 			  const numberLikes = parseInt(numLikes[i].innerHTML) + 1
 			  set(ref(db, "article " + i), {
 				  numLikes: numberLikes,
+				  userList: userLists[i],
 			  });
 		  }
 	  }
