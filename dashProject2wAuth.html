@@ -56,6 +56,7 @@
 <body>
   <header>
     <button id="google-sign-in">Sign in with Google</button>
+	<br/>
     <img src="https://pngimg.com/d/heart_PNG687.png">
 
     <h1>Sarah's Blog</h1>
@@ -139,13 +140,15 @@ onAuthStateChanged(auth, (user) => {
     // https://firebase.google.com/docs/reference/js/auth.user
     const uid = user.uid;
     console.log(uid)
+    return(uid)
     // ...
   } else {
     // User is signed out
     // ...
   }
 });
-	  
+
+
 /*
 setPersistence(auth, browserSessionPersistence)
   .then(() => {
@@ -181,10 +184,12 @@ setPersistence(auth, browserSessionPersistence)
   	  }
 
 	  function Like(i) {
-		  const numberLikes = parseInt(numLikes[i].innerHTML) + 1
-		  set(ref(db, "article " + i), {
-			  numLikes: numberLikes,
-		  });
+		  if (uid) {
+			  const numberLikes = parseInt(numLikes[i].innerHTML) + 1
+			  set(ref(db, "article " + i), {
+				  numLikes: numberLikes,
+			  });
+		  }
 	  }
 
 
