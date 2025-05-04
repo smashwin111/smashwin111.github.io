@@ -114,7 +114,7 @@
     const googleSignInButton = document.getElementById('google-sign-in');
 
     googleSignInButton.addEventListener('click', () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
+        const provider = new GoogleAuthProvider();
         auth.signInWithPopup(provider)
             .then((result) => {
                 // User signed in successfully.
