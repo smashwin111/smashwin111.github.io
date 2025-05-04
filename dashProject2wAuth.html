@@ -37,9 +37,7 @@
       padding: 20px;
       margin: 0 auto;
     }
-    #google-sign-in {
-	    float: right;
-    }
+
 	
     @media (max-width: 500px) {
       h1 {
@@ -55,10 +53,12 @@
 </head>
 <body>
   <header>
-    <button id="google-sign-out">Sign out</button>
-    <div id="uid"></div>
     <button id="google-sign-in">Sign in with Google</button>
-	<br/>
+    <div id="uid"></div>
+    <button id="google-sign-out">Sign out</button>
+
+
+    <br/>
     <img src="https://pngimg.com/d/heart_PNG687.png">
 
     <h1>Sarah's Blog</h1>
@@ -155,7 +155,7 @@ onAuthStateChanged(auth, (user) => {
     console.log("uid: " + uid)
     //userIn = true
     UID = uid
-    uidDisplay.innerHTML = UID
+    uidDisplay.innerHTML = "User ID:" + UID
     // ...
   } else {
     // User is signed out
