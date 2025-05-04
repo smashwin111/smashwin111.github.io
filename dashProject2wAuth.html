@@ -86,7 +86,7 @@
 	  // https://firebase.google.com/docs/web/setup#available-libraries
 	  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 
-	  import { getAuth, setPersistence, GoogleAuthProvider, signInWithRedirect, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+	  import { getAuth, setPersistence, GoogleAuthProvider, signInWithRedirect, signInWithPopup, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
 	  // Your web app's Firebase configuration
 	  const firebaseConfig = {
@@ -110,8 +110,27 @@
 
 	  const auth = getAuth();
 
+signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
 	  
-
+/*
 setPersistence(auth, browserSessionPersistence)
   .then(() => {
     // Existing and future Auth states are now persisted in the current
@@ -126,7 +145,7 @@ setPersistence(auth, browserSessionPersistence)
     const errorCode = error.code;
     const errorMessage = error.message;
   });
-
+  */
 
 	  const numLikes = document.querySelectorAll('.numLikes')
 	  const likeButtons = document.querySelectorAll('.likeButtons')
