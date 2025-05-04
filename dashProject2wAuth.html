@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<head>
+
+  <style>
+    header {
+      text-align: center;
+      background: url('https://t3.ftcdn.net/jpg/02/70/35/00/360_F_270350073_WO6yQAdptEnAhYKM5GuA9035wbRnVJSr.jpg');
+      background-size: cover;
+      color: white;
+    }
+	body {
+		background: teal;
+	}
+    a {
+      color: teal;
+    }
+    h1 {
+      font-size: 70px;
+	  color: violet;
+    }
+    img {
+      margin: 40px 0px 0px 0px;
+      border: 7px solid white;
+      border-radius: 20px;
+	  width: 300px;
+    }
+    ul {
+      padding: 10px;
+      background: rgba(100,0,0,0.5);
+    }
+    li {
+      display: inline;
+      padding: 0px 10px 0px 10px;
+    }
+    article {
+      max-width: 500px;
+      padding: 20px;
+      margin: 0 auto;
+    }
+
+	
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 36px;
+        padding: 5px;
+      }
+      li {
+        padding: 5px;
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://pngimg.com/d/heart_PNG687.png">
+    <h1>Sarah's Blog</h1>
+    <ul>
+      <li><a href="#">About Me</a></li>
+      <li><a href="#">Best Times</a></li>
+      <li><a href="#">Worst Times</a></li>
+    </ul>
+  </header>
+  <article>
+    <h2>The Time I went to Alaska</h2>
+    <p>What a beautiful and fantastic trip! I would recommend it to anyone, large or small.</p>
+    <button class="likeButtons">Like</button>
+	<span class="numLikes">0</span>
+  </article>
+  <article>
+    <h2>The Time I fell off my bike</h2>
+    <p>What a bad trip! I wouldn't recommend it to anyone. Once it happens, you'll never want to ride a bike again : (</p>
+    <button class="likeButtons">Like</button>
+	<span class="numLikes">0</span>
+  </article>
+  <article>
+    <h2>The Time I made a friend</h2>
+    <p>I'm talking about a real friend, like someone who can finish your sentence because they just get you. Don't make fun of me!</p>
+    <button class="likeButtons">Like</button>
+	<span class="numLikes">0</span>
+  </article>
+  <script type="module">
+	  // Import the functions you need from the SDKs you need
+	  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
+	  // TODO: Add SDKs for Firebase products that you want to use
+	  // https://firebase.google.com/docs/web/setup#available-libraries
+	  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
+
+	  import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js";
+
+	  // Your web app's Firebase configuration
+	  const firebaseConfig = {
+	    apiKey: "AIzaSyBD6rSTlDFYDo-8o8tgaUKzkk-mCskw1Fw",
+	    authDomain: "project-2-fd51c.firebaseapp.com",
+	    databaseURL: "https://project-2-fd51c-default-rtdb.firebaseio.com",
+	    projectId: "project-2-fd51c",
+	    storageBucket: "project-2-fd51c.firebasestorage.app",
+	    messagingSenderId: "971559636419",
+	    appId: "1:971559636419:web:23cb65f27feb1419cd8176"
+	  };
+
+	  // Initialize Firebase
+	  const app = initializeApp(firebaseConfig);
+	  
+	  
+	  const db = getDatabase(app);
+	  //likes = document.querySelector(".likes");
+
+	  const provider = new GoogleAuthProvider();
+
+	  const auth = getAuth();
+	  signInWithPopup(auth, provider)
+	    .then((result) => {
+	      // This gives you a Google Access Token. You can use it to access the Google API.
+	      const credential = GoogleAuthProvider.credentialFromResult(result);
+	      const token = credential.accessToken;
+	      // The signed-in user info.
+	      const user = result.user;
+	      // IdP data available using getAdditionalUserInfo(result)
+	      // ...
+	    }).catch((error) => {
+	      // Handle Errors here.
+	      const errorCode = error.code;
+	      const errorMessage = error.message;
+	      // The email of the user's account used.
+	      const email = error.customData.email;
+	      // The AuthCredential type that was used.
+	      const credential = GoogleAuthProvider.credentialFromError(error);
+	      // ...
+	    });
+
+
+	  const numLikes = document.querySelectorAll('.numLikes')
+	  const likeButtons = document.querySelectorAll('.likeButtons')
+	  
+
+
+
+	  for (let i=0; i<likeButtons.length; i++) {
+		  likeButtons[i].addEventListener('click', function(){ Like(i) })
+	  	 
+		  onValue(ref(db, "/article "+i+"/numLikes"), (snapshot) => {
+			    let data = snapshot.val();
+				console.log(data)
+				numLikes[i].innerHTML = data
+		  });
+
+  	  }
+
+	  function Like(i) {
+		  const numberLikes = parseInt(numLikes[i].innerHTML) + 1
+		  set(ref(db, "article " + i), {
+			  numLikes: numberLikes,
+		  });
+	  }
+
+
+
+	  
+  </script>
+</body>
