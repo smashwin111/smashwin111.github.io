@@ -133,7 +133,7 @@
 	                // User signed in successfully.
 	                const user = result.user;
 	                // Handle signed-in user
-	                console.log(user);
+	                console.log("user: " + user);
 	            })
 	            .catch((error) => {
 	                // Handle errors.
@@ -152,7 +152,7 @@ onAuthStateChanged(auth, (user) => {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
     const uid = user.uid;
-    console.log(uid)
+    console.log("uid: " + uid)
     //userIn = true
     UID = uid
     uidDisplay.innerHTML = UID
