@@ -41,7 +41,7 @@
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
     import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-    import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app-check.js";
+
     // Your web app's Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyBC77FHWWBXWE9rgEHApPXSIEp0ebqktGI",
@@ -73,13 +73,7 @@
     const db = getDatabase(app); 
     const db2 = getDatabase(app2);
 	
-const appCheck = initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider('6LeQ_i0rAAAAALQm8YO1iFR5JZHDG0N-Vx1O-6Us'),
 
-  // Optional argument. If true, the SDK automatically refreshes App Check
-  // tokens as needed.
-  isTokenAutoRefreshEnabled: true
-});
 
 	
     //custom code here onwards
