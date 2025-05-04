@@ -54,6 +54,7 @@
 <body>
   <header>
     <img src="https://pngimg.com/d/heart_PNG687.png">
+    <button id="google-sign-in">Sign in with Google</button>
     <h1>Sarah's Blog</h1>
     <ul>
       <li><a href="#">About Me</a></li>
@@ -106,29 +107,28 @@
 	  const db = getDatabase(app);
 	  //likes = document.querySelector(".likes");
 
-	  const provider = new GoogleAuthProvider();
+	  //const provider = new GoogleAuthProvider();
 
 	  const auth = getAuth();
 
-signInWithPopup(auth, provider)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });
+    const googleSignInButton = document.getElementById('google-sign-in');
+
+    googleSignInButton.addEventListener('click', () => {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider)
+            .then((result) => {
+                // User signed in successfully.
+                const user = result.user;
+                // Handle signed-in user
+                console.log(user);
+            })
+            .catch((error) => {
+                // Handle errors.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error(errorCode, errorMessage);
+            });
+    });
 	  
 /*
 setPersistence(auth, browserSessionPersistence)
