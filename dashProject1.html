@@ -141,13 +141,13 @@
 	  //month = "0" + month
 	  timestamp += month + "/"; 
 
-	  let date = now.getDate()-3
+	  let date = now.getDate()
 	  date = date.toString()
 	  //date = addLeadingZero(date)
 	  //date = "0" + date
 	  timestamp += date + "/";
 
-	  let hours = now.getHours()+5
+	  let hours = now.getHours()
 	  hours = hours.toString()
 	  hours = addLeadingZero(hours)
 	  timestamp += hours + ":";
