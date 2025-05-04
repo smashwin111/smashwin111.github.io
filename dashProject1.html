@@ -41,16 +41,16 @@
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
     import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-
+import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app-check.js";
   // Your web app's Firebase configuration
   const firebaseConfig = {
-    apiKey: secrets.SECRET_API_KEY,
-    authDomain: "project-1-again.firebaseapp.com",
-    databaseURL: "https://project-1-again-default-rtdb.firebaseio.com",
-    projectId: "project-1-again",
-    storageBucket: "project-1-again.firebasestorage.app",
-    messagingSenderId: "1096850754882",
-    appId: "1:1096850754882:web:720fcfbf2f528cbf8b8cdb"
+    apiKey: "AIzaSyBC77FHWWBXWE9rgEHApPXSIEp0ebqktGI",
+    authDomain: "mfa-ashwin.firebaseapp.com",
+    databaseURL: "https://mfa-ashwin-default-rtdb.firebaseio.com",
+    projectId: "mfa-ashwin",
+    storageBucket: "mfa-ashwin.firebasestorage.app",
+    messagingSenderId: "882291895477",
+    appId: "1:882291895477:web:4550ef98df96f1065d62fc"
   };
 
   // Your web app's Firebase configuration
@@ -74,7 +74,13 @@
     const db2 = getDatabase(app2);
 	
 
+const appCheck = initializeAppCheck(app, {
+  provider: new ReCaptchaV3Provider('6LdTBC4rAAAAAEJEAlcoHFI-OdrrFNmNVlf1kWd4'),
 
+  // Optional argument. If true, the SDK automatically refreshes App Check
+  // tokens as needed.
+  isTokenAutoRefreshEnabled: true
+});
 	
     //custom code here onwards
 	document.querySelector('#submit').addEventListener('click', Submit)
