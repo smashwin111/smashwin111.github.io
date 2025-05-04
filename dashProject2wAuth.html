@@ -55,6 +55,7 @@
 </head>
 <body>
   <header>
+    <button id="google-sign-out">Sign out</button>
     <button id="google-sign-in">Sign in with Google</button>
 	<br/>
     <img src="https://pngimg.com/d/heart_PNG687.png">
@@ -91,7 +92,7 @@
 	  // https://firebase.google.com/docs/web/setup#available-libraries
 	  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 
-	  import { getAuth, onAuthStateChanged, setPersistence, GoogleAuthProvider, signInWithRedirect, signInWithPopup, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+	  import { getAuth, onAuthStateChanged, setPersistence, GoogleAuthProvider, signInWithRedirect, signInWithPopup, signOut, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
 	  // Your web app's Firebase configuration
 	  const firebaseConfig = {
@@ -116,6 +117,7 @@
 	  const auth = getAuth();
 
     const googleSignInButton = document.getElementById('google-sign-in');
+    const googleSignOutButton = document.getElementById('google-sign-out');
 
     googleSignInButton.addEventListener('click', () => {
         const provider = new GoogleAuthProvider();
@@ -149,7 +151,16 @@ onAuthStateChanged(auth, (user) => {
     // ...
   }
 });
-
+	  
+googleSignOutButton.addEventListener('click', () => {
+	signOut(auth).then(() => {
+	  // Sign-out successful.
+	  console.log("User signed out");
+	}).catch((error) => {
+	  // An error happened.
+	  console.error("Sign out error:", error);
+	});
+});
 
 /*
 setPersistence(auth, browserSessionPersistence)
