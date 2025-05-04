@@ -219,7 +219,7 @@ setPersistence(auth, browserSessionPersistence)
 	  
 	  
 	  function Like(i) {
-		  if (UID != "") {
+		  if (UID != "" && !userLists[i].includes(UID)) {
 			  userLists[i].push(UID)
 			  const numberLikes = parseInt(numLikes[i].innerHTML) + 1
 			  set(ref(db, "article " + i), {
