@@ -87,7 +87,7 @@
 	  // https://firebase.google.com/docs/web/setup#available-libraries
 	  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 
-	  import { getAuth, setPersistence, GoogleAuthProvider, signInWithRedirect, signInWithPopup, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+	  import { getAuth, onAuthStateChanged, setPersistence, GoogleAuthProvider, signInWithRedirect, signInWithPopup, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
 	  // Your web app's Firebase configuration
 	  const firebaseConfig = {
@@ -129,6 +129,19 @@
                 console.error(errorCode, errorMessage);
             });
     });
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/auth.user
+    const uid = user.uid;
+    console.log(uid)
+    // ...
+  } else {
+    // User is signed out
+    // ...
+  }
+});
 	  
 /*
 setPersistence(auth, browserSessionPersistence)
