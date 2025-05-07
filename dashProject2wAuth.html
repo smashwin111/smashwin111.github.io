@@ -61,7 +61,7 @@
     <br/>
     <img src="https://pngimg.com/d/heart_PNG687.png">
 
-    <h1>SaRaH's Blog</h1>
+    <h1>Sarah's Blog</h1>
     <ul>
       <li><a href="#">About Me</a></li>
       <li><a href="#">Best Times</a></li>
@@ -211,7 +211,11 @@ setPersistence(auth, browserSessionPersistence)
 			    let data = snapshot.val();
 			    console.log("userList " + i + ": " + data)
 			    //numLikes[i].innerHTML = data
-			    userLists[i] = data
+			    if (data != null) {
+			    	userLists[i] = data
+			    else {
+				userLists[i] = []    
+			    }
 		  });
 
   	  }
