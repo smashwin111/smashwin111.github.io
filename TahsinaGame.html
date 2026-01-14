@@ -1,0 +1,356 @@
+<html>
+
+<head>
+	<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>  
+</head>
+
+<body>
+	<a-scene>
+		<a-plane position="0 -0 -4" rotation="-90 0 0" width="80" height="80" color="brown"></a-plane>
+		<a-sky color="rgb(200,200,255)"></a-sky>
+		<a-camera look-controls="pointerLockEnabled:true">
+			<a-cursor>
+				<a-text></a-text>
+			</a-cursor>
+		</a-camera>
+	</a-scene>
+
+
+	<script>
+
+	let scene = document.querySelector("a-scene")
+	let camera = document.querySelector("a-camera")
+	let cameraPos = camera.getAttribute("position")
+
+	let walls = []
+
+	let birdseye = false
+	
+	let text = document.querySelector("a-text")
+	text.setAttribute("color", "#000000") 
+	text.setAttribute("scale", "1.5 1.5 1.5")
+	text.setAttribute("position", `-1.0 1.0 -0.5`)
+
+	let enemies = [ ]	
+		let coins = [ ]
+		
+	let originalX = cameraPos.x
+	let originalZ = cameraPos.z
+
+	window.onload = function() {
+
+		walls.push(new Wall(x = -5, z = -2, width = 2, length = 9, "yellow"))
+		walls.push(new Wall(x = 2.5, z = 14, width = 2, length = 27, "pink"))
+		walls.push(new Wall(x = -1, z = 3.5, width = 6, length = 2, "purple"))
+		walls.push(new Wall(x = -3, z = -7.5, width = 12, length = 2, "blue" ))
+		walls.push(new Wall(x = 2.5, z = -11.5, width = 2, length = 10, "green"))
+		walls.push(new Wall(x = 7.5, z = -13, width = 2, length = 17, "orange"))
+		walls.push(new Wall(x = 8, z = -0.5, width = 13, length = 2))
+		walls.push(new Wall(x = 0, z = -22.5, width = 40, length = 2, "red"))
+		walls.push(new Wall(x = -10, z = -15, width = 2, length = 14, "black"))
+		walls.push(new Wall(x = 20, z = -13, width = 2, length = 80, "green"))
+		walls.push(new Wall(x = 12, z = -6, width = 7, length = 2, "grey"))
+		walls.push(new Wall(x = 15, z = 6, width = 2, length = 15, "black"))
+		walls.push(new Wall(x = 7, z = 13, width = 7, length = 2, "red"))
+		walls.push(new Wall(x = 11, z = 27, width = 16, length = 2, "orange"))
+		walls.push(new Wall(x = 9.5, z = 17.5, width = 2, length = 7, "blue"))
+		enemies.push(new Enemy(x=2, z=-4, v=0.03, direction="z", range=3, rotation=0, "orange")) 
+		enemies.push(new Enemy(x=3, z=-19, v=0.03, direction="z", ranges=3, rotation=0, "pink"))
+		enemies.push(new Enemy(x=17, z=-6, v=0.03, direction="x", ranges=3, rotation=0, "red"))
+		enemies.push(new Enemy(x=12, z=13, v=0.03, direction="x", ranges=3, rotation=0, "purple"))
+		enemies.push(new Enemy(x=9, z=23, v=0.03, direction="z", ranges=3, rotation=0, "grey"))
+		coins.push(new Coin(x=-1, z=-4))
+		coins.push(new Coin(x=-4, z=-15))
+		coins.push(new Coin(x=14, z=-15))
+		coins.push(new Coin(x=9, z= 6))
+		coins.push(new Coin(x=5, z=23))
+
+
+		//keyboard toggle between birdseye view and street view
+		document.addEventListener('keydown', function(event) {
+			//return (enter) key
+			if(event.keyCode == 13) {
+				birdseye = !birdseye
+				//console.log(birdseye)
+			}
+		});
+
+		//start game loop below
+		loop()
+	}
+
+
+
+	//game loop 
+	function loop() {
+
+		for (let wall of walls) {
+			wall.blocksYou()
+		}
+
+		if (coins.every(coin => coin.collected==true)) {
+		    camera_final_x = cameraPos.x
+		    camera_final_z = cameraPos.z
+		    game_over()
+		    return
+		}
+
+		for (let enemy of enemies){
+			enemy.moves()
+			enemy.resetsYou()
+		}
+		for (let coin of coins) {
+			coin.angle = coin.angle + 1
+			coin.obj.setAttribute("rotation", `0 ${coin.angle} 0`)
+			coin.disappears()
+		}
+		
+
+	  //text.setAttribute("value", `${Math.round(cameraPos.x)} , ${Math.round(cameraPos.z)}`)
+
+		if (birdseye==true) {
+			//position and rotate camera to a view from above
+			camera.setAttribute("position", `${cameraPos.x} 14 ${cameraPos.z}`)
+			camera.components["look-controls"].pitchObject.rotation.x = -Math.PI/2
+			camera.setAttribute("look-controls", "mouseEnabled:false")
+		}
+		else if (birdseye==false) {
+			//position and rotate camera back into street view
+			camera.setAttribute("position", `${cameraPos.x} 1.6 ${cameraPos.z}`)
+			camera.components["look-controls"].pitchObject.rotation.x = 0
+			camera.setAttribute("look-controls", "mouseEnabled:true")
+		}
+
+		setTimeout(loop, 10)
+
+	}
+
+
+
+
+	//TYPES OF OBJECTS
+	
+	function game_over() {
+	  cameraPos.x = camera_final_x
+	  cameraPos.z = camera_final_z
+ 	  text.setAttribute("value", "Congrats!")
+  
+	  setTimeout(game_over, 10)
+	}
+
+	class Wall {
+		constructor(x, z, width, length, color) {
+			this.x = x
+			this.z = z
+			this.width = width
+			this.length = length
+			this.obj = document.createElement("a-box")
+			this.obj.setAttribute("scale", `${width} 2 ${length}`)
+			this.obj.setAttribute("position", `${x} 1 ${z}`)
+			this.obj.setAttribute("color", color)
+
+			scene.append(this.obj)
+		}
+
+		blocksYou() {
+			let bump = 0.40
+
+			//z direction blocking
+			if (cameraPos.x < this.x + this.width / 2 && cameraPos.x > this.x - this.width / 2) {
+				if (cameraPos.z < this.z + this.length / 2 + bump && cameraPos.z > this.z + this.length / 2) {
+					camera.setAttribute("position", { x: cameraPos.x, y: cameraPos.y, z: cameraPos.z + bump })
+				}
+				else if (cameraPos.z < this.z - this.length / 2 && cameraPos.z > this.z - this.length / 2 - bump) {
+					camera.setAttribute("position", { x: cameraPos.x, y: cameraPos.y, z: cameraPos.z - bump })
+				}
+			}
+
+			//x direction blocking 
+			if (cameraPos.z < this.z + this.length / 2 && cameraPos.z > this.z - this.length / 2) {
+				if (cameraPos.x < this.x + this.width / 2 + bump && cameraPos.x > this.x + this.width / 2) {
+					camera.setAttribute("position", { x: cameraPos.x + bump, y: cameraPos.y, z: cameraPos.z })
+				}
+				else if (cameraPos.x < this.x - this.width / 2 && cameraPos.x > this.x - this.width / 2 - bump) {
+					camera.setAttribute("position", { x: cameraPos.x - bump, y: cameraPos.y, z: cameraPos.z })
+				}
+			}
+		}
+	}
+
+	class Enemy {
+		constructor(x,z,v,direction,range,rotation, color) {
+			this.x = x
+			this.z = z
+			this.originalX = x
+			this.originalZ = z
+			this.width = 0.25
+			this.length = 0.25
+			this.velocity = v
+			this.direction = direction
+			this.range = range
+			this.rotation = rotation
+			//this.obj = document.createElement("a-box")
+			this.obj = document.createElement("a-entity")
+			const body = document.createElement("a-cylinder")
+			body.setAttribute("color", color)
+			body.setAttribute("scale", `${this.width} 1.5 ${this.length}`)
+			const leftEye = document.createElement("a-sphere")
+			leftEye.setAttribute("color", "rgb(0,0,0)")
+			leftEye.setAttribute("scale", `0.05 0.05 0.05`)
+			leftEye.setAttribute("position", `0.1 0.5 0.25`)
+			const rightEye = document.createElement("a-sphere")
+			rightEye.setAttribute("color", "rgb(0,0,0)")
+			rightEye.setAttribute("scale", `0.05 0.05 0.05`)
+			rightEye.setAttribute("position", `-0.1 0.5 0.25`)
+			const eyebrows = document.createElement("a-circle")
+			eyebrows.setAttribute("color", "rgb(0,0,0)")
+			eyebrows.setAttribute("scale", `0.15 0.1 0.2`)
+			eyebrows.setAttribute("rotation", "20 0 0")
+			eyebrows.setAttribute("position", `0 0.25 0.22`)
+			this.obj.appendChild(body)
+			this.obj.appendChild(leftEye)
+			this.obj.appendChild(rightEye)
+			this.obj.appendChild(eyebrows)
+			this.obj.setAttribute("rotation", `0 ${this.rotation} 0`)
+			this.obj.setAttribute("position", `${this.x} 0.75 ${this.z}`)
+			//this.obj.setAttribute("src", "evil.png")
+			//this.obj.setAttribute("color", "rgb(155,100,100)")
+			scene.append(this.obj)
+		}
+
+
+		moves() {
+			if (this.direction == "x") { 
+			  this.x = this.x + this.velocity
+			  if (this.x > this.originalX + this.range/2) {
+				  this.velocity = this.velocity * -1
+			  }
+			  else if (this.x < this.originalX - this.range/2) {
+				  this.velocity = this.velocity * -1
+			  }
+			}
+			else if (this.direction == "z") { 
+			  this.z = this.z + this.velocity
+			  if (this.z > this.originalZ + this.range/2) {
+				  this.velocity = this.velocity * -1
+			  }
+			  else if (this.z < this.originalZ - this.range/2) {
+				  this.velocity = this.velocity * -1
+			  }
+			}
+			this.obj.setAttribute("position", `${this.x} 0.75 ${this.z}`)
+		}
+
+		resetsYou() {
+			let bump = 0.25
+
+			//z direction reset
+			if (cameraPos.x<this.x+this.width/2 && cameraPos.x>this.x-this.width/2) {
+				if (cameraPos.z<this.z+this.length/2+bump && cameraPos.z>this.z+this.length/2) {
+					camera.setAttribute("position", {x:originalX, y:cameraPos.y, z:originalZ})
+					reactToEnemy()
+				}
+				else if (cameraPos.z<this.z-this.length/2 && cameraPos.z>this.z-this.length/2-bump) {
+					camera.setAttribute("position", {x:originalX, y:cameraPos.y, z:originalZ})
+					reactToEnemy()
+				}
+			}
+
+			//x direction reset 
+			if (cameraPos.z<this.z+this.length/2 && cameraPos.z>this.z-this.length/2) {
+				if (cameraPos.x<this.x+this.width/2+bump && cameraPos.x>this.x+this.width/2) {
+					camera.setAttribute("position", {x:originalX, y:cameraPos.y, z:originalZ})
+					reactToEnemy()
+				}
+				else if (cameraPos.x<this.x-this.width/2 && cameraPos.x>this.x-this.width/2-bump) {
+					camera.setAttribute("position", {x:originalX, y:cameraPos.y, z:originalZ})
+					reactToEnemy()
+				}
+			}
+
+		}
+
+	}
+
+	function reactToEnemy() {
+    for (let coin of coins) {
+	coin.obj.setAttribute("scale", `${coin.originalWidth} ${coin.originalHeight} ${coin.originalLength}`)
+	coin.collected = false
+    }
+
+		text.setAttribute("value", "ouch!")
+		setTimeout(function(){
+			text.setAttribute("value", "")
+		}, 500);
+	}
+	class Coin {
+		constructor(x,z) {
+			this.x = x
+			this.z = z
+			this.originalX = x
+			this.originalZ = z
+			this.width = 0.25
+			this.height = 0.25
+			this.length = 0.25
+			this.originalWidth = this.width
+			this.originalHeight = this.height
+			this.originalLength = this.length
+			this.angle = 0
+			this.collected = false 
+			this.obj = document.createElement("a-torus")
+			this.obj.setAttribute("scale", `${this.width} ${this.height} ${this.length}`)
+			this.obj.setAttribute("position", `${this.x} 1.0 ${this.z}`)
+			this.obj.setAttribute("color", "rgb(255,255,0)")
+			//this.obj.setAttribute("src", "coin.png")
+			scene.append(this.obj)
+		}
+
+		disappears() {
+			let bump = 0.25
+
+			//z direction disappearance
+			if (cameraPos.x<this.x+this.width/2 && cameraPos.x>this.x-this.width/2 && this.collected==false) {
+				if (cameraPos.z<this.z+this.length/2+bump && cameraPos.z>this.z+this.length/2) {
+					this.obj.setAttribute("scale", `0 0 0`)
+					this.collected = true
+					reactToCoin()
+				}
+				else if (cameraPos.z<this.z-this.length/2 && cameraPos.z>this.z-this.length/2-bump) {
+					this.obj.setAttribute("scale", `0 0 0`)
+					this.collected = true
+					reactToCoin()
+				}
+			}
+
+			//x direction disappearance
+			if (cameraPos.z<this.z+this.length/2 && cameraPos.z>this.z-this.length/2 && this.collected==false) {
+				if (cameraPos.x<this.x+this.width/2+bump && cameraPos.x>this.x+this.width/2) {
+					this.obj.setAttribute("scale", `0 0 0`)
+					this.collected = true
+					reactToCoin()
+				}
+				else if (cameraPos.x<this.x-this.width/2 && cameraPos.x>this.x-this.width/2-bump) {
+					this.obj.setAttribute("scale", `0 0 0`)
+					this.collected = true
+					reactToCoin()
+				}
+			}
+
+		}
+
+	}
+
+	function reactToCoin() {
+		text.setAttribute("value", "got it!")
+		setTimeout(function(){
+			text.setAttribute("value", "")
+		}, 500);
+	}
+	
+
+
+	</script>
+  
+</body>
+
+</html>
