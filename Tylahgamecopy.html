@@ -1,3 +1,4 @@
+
 <html>
 
 <head>
@@ -119,6 +120,14 @@
 			wall.blocksYou()
 		}
 
+		//mobile device: MOVE FORWARD
+		if (touchingNow == true) {
+			let angle = camera.getAttribute("rotation") 
+			let changeX = 0.25 * Math.sin(angle.y * Math.PI / 180)
+			let changeZ = 0.25 * Math.cos(angle.y * Math.PI / 180) 
+			cameraPos.x -= changeX/4; 
+			cameraPos.z -= changeZ/4; 
+		}
 
 
 
@@ -144,6 +153,7 @@
 			coin.disappears()
 		}
 		
+
 		
 
 		//text.setAttribute("value", `${Math.round(cameraPos.x)} , ${Math.round(cameraPos.z)}`)
@@ -401,4 +411,5 @@
 </body>
 
 </html>
+
 
