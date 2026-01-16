@@ -17,6 +17,10 @@
 
 
 	<script>
+	//for MOBILE DEVICE controls
+	let message = "TAP/CLICK"
+	let touchingNow = false
+	//END OF mobile device let statements
 
 	let scene = document.querySelector("a-scene")
 	let camera = document.querySelector("a-camera")
@@ -32,7 +36,7 @@
 	text.setAttribute("position", `-1.0 1.0 -0.5`)
 
 	let enemies = [ ]	
-		let coins = [ ]
+	let coins = [ ]
 		
 	let originalX = cameraPos.x
 	let originalZ = cameraPos.z
@@ -59,11 +63,36 @@
 		enemies.push(new Enemy(x=17, z=-6, v=0.03, direction="x", ranges=3, rotation=0, "red"))
 		enemies.push(new Enemy(x=12, z=13, v=0.03, direction="x", ranges=3, rotation=0, "purple"))
 		enemies.push(new Enemy(x=9, z=23, v=0.03, direction="z", ranges=3, rotation=0, "grey"))
-		coins.push(new Coin(x=-1, z=-4))
+		coins.push(new Coin(x=0, z=-4))
 		coins.push(new Coin(x=-4, z=-15))
 		coins.push(new Coin(x=14, z=-15))
 		coins.push(new Coin(x=9, z= 6))
 		coins.push(new Coin(x=5, z=23))
+		
+		//touching mobile device screen continues: FORWARD
+		window.addEventListener("touchstart", function(event) {
+			if (message == "") {
+				touchingNow = true
+				event.preventDefault()
+			}
+		}, { passive: false })
+
+		//touching mobile device screen ends: BACKWARD
+		window.addEventListener("touchend", function(event) {
+			touchingNow = false
+			if (message == "") {
+				let angle = camera.getAttribute("rotation") 
+				let changeX = 0.25 * Math.sin(angle.y * Math.PI / 180)
+				let changeZ = 0.25 * Math.cos(angle.y * Math.PI / 180) 
+				cameraPos.x += 1.5*changeX; 
+				cameraPos.z += 1.5*changeZ;
+				event.preventDefault()
+			}
+			else {
+				message = ""
+			}
+		}, { passive: false })
+		
 
 
 		//keyboard toggle between birdseye view and street view
@@ -87,6 +116,16 @@
 		for (let wall of walls) {
 			wall.blocksYou()
 		}
+	
+		//mobile device: MOVE FORWARD
+		if (touchingNow == true) {
+			let angle = camera.getAttribute("rotation") 
+			let changeX = 0.25 * Math.sin(angle.y * Math.PI / 180)
+			let changeZ = 0.25 * Math.cos(angle.y * Math.PI / 180) 
+			cameraPos.x -= changeX/4; 
+			cameraPos.z -= changeZ/4; 
+		}	
+	
 
 		if (coins.every(coin => coin.collected==true)) {
 		    camera_final_x = cameraPos.x
