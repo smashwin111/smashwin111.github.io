@@ -1,0 +1,517 @@
+<html>
+
+<head>
+	<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>  
+</head>
+
+<body>
+	<a-scene>
+		<a-plane position="0 -0 -4" rotation="-90 0 0" width="80" height="80" color="brown"></a-plane>
+		<a-sky color="rgb(200,200,255)"></a-sky>
+		<a-camera look-controls="pointerLockEnabled:true">
+			<a-cursor>
+				<a-text></a-text>
+			</a-cursor>
+		</a-camera>
+	</a-scene>
+
+
+	<script>
+		
+	//for MOBILE DEVICE controls
+	let message = "TAP/CLICK"
+	let touchingNow = false
+	//END OF mobile device let statements
+	
+    
+	let text = document.querySelector("a-text")
+	text.setAttribute("color", "#000000") 
+	text.setAttribute("scale", "1.5 1.5 1.5")
+	text.setAttribute("position", `-1.0 1.0 -0.5`)
+		
+
+	let scene = document.querySelector("a-scene")
+	let camera = document.querySelector("a-camera")
+	let cameraPos = camera.getAttribute("position")
+
+	let walls = []
+	let enemies = [ ]
+	let doors = [ ]
+	let coins = [ ]
+		
+
+	let birdseye = false
+	let originalX = cameraPos.x 
+	let originalZ = cameraPos.z
+
+	window.onload = function() {
+
+		walls.push(new Wall(x = -2, z = -1, width = 2, length = 6, "yellow"))
+		walls.push(new Wall(x = 7, z = -1, width = 2, length = 6, "pink"))
+		walls.push(new Wall(x = 0, z = 3, width = 5, length = 2, "purple"))
+		walls.push(new Wall(x = 3, z = 3, width = 8, length = 2, "blue"))
+		walls.push(new Wall(x = 6, z = 2, width = 2, length = 14, "red"))
+		walls.push(new Wall(x = 8, z = 10, width = 13, length = 2, "cyan"))
+		walls.push(new Wall(x = 6, z = 10, width = 2, length = 14, "purple"))
+		walls.push(new Wall(x = 10, z = 17, width = 20, length = 2, "red"))
+		walls.push(new Wall(x = 18, z = 10, width = 2, length = 18, "yellow"))
+		walls.push(new Wall(x = 15, z = 3, width = 10, length = 2, "red"))
+		walls.push(new Wall(x = 18, z = 3, width = 2, length = 23, "yellow"))
+		walls.push(new Wall(x = 8, z = -8 , width = 38, length = 2, "red"))
+		walls.push(new Wall(x = -8, z = -3, width = 2, length = 20, "orange"))
+		walls.push(new Wall(x = -4, z = 10, width = 20, length = 2, "red"))
+		walls.push(new Wall(x = 0, z = 5, width = 1, length = 3, "blue"))
+		walls.push(new Wall(x = -1, z = -3, width = 5, length = 1, "yellow"))
+		walls.push(new Wall(x = -10, z = -8, width = 15, length = 2, "orange"))
+		walls.push(new Wall(x = -13, z = -1, width = 12, length = 2, "yellow"))
+		walls.push(new Wall(x = -19, z = 4, width = 2, length = 16, "black"))
+		walls.push(new Wall(x = -10, z = 17, width = 20, length = 2, "green"))
+		walls.push(new Wall(x = -10, z = 12, width = 1, length = 4, "red"))
+		walls.push(new Wall(x = -12, z = 4, width = 7, length = 1, "yellow"))
+		
+        enemies.push(new Enemy(x=2, z=-4, v=0.01, direction="x", range=4, rotation=0)) 
+		enemies.push(new Enemy(x=14, z=8, v=0.01, direction="x", range=4, rotation=0)) 
+		enemies.push(new Enemy(x=-2, z=7, v=0.01, direction="z", range=3.5, rotation=0)) 
+		enemies.push(new Enemy(x=-15, z=6, v=0.01, direction="x", range=4, rotation=0)) 
+		enemies.push(new Enemy(x=-12, z=14, v=0.01, direction="z", range=4, rotation=0)) 
+		
+		
+		doors.push(new Door(x=15.5, z=9, width=2, length=0.25, "red"))
+		doors.push(new Door(x=3.5, z=-3, width=4, length=0.25, "green"))
+		doors.push(new Door(x=0, z=8, width=0.25, length=3, "grey"))
+		doors.push(new Door(x=-17, z=4, width=3, length=0.25, "white"))
+		doors.push(new Door(x=-10, z=15, width=0.25, length=3, "black"))
+		
+		
+		coins.push(new Coin(x=2, z=0))
+		coins.push(new Coin(x=9, z=12))
+		coins.push(new Coin(x=3, z=7))
+		coins.push(new Coin(x=-15, z=2))
+		coins.push(new Coin(x=3, z=13))
+		
+		
+ 	   special_enemy = new Enemy(x=0, z=3, v=0.008, direction="x", range=10, rotation=0)
+		
+		
+		
+		//touching mobile device screen continues: FORWARD
+		window.addEventListener("touchstart", function(event) {
+			if (message == "") {
+				touchingNow = true
+				event.preventDefault()
+			}
+		}, { passive: false })
+
+		//touching mobile device screen ends: BACKWARD
+		window.addEventListener("touchend", function(event) {
+			touchingNow = false
+			if (message == "") {
+				let angle = camera.getAttribute("rotation") 
+				let changeX = 0.25 * Math.sin(angle.y * Math.PI / 180)
+				let changeZ = 0.25 * Math.cos(angle.y * Math.PI / 180) 
+				cameraPos.x += 1.5*changeX; 
+				cameraPos.z += 1.5*changeZ;
+				event.preventDefault()
+			}
+			else {
+				message = ""
+			}
+		}, { passive: false })
+
+
+		
+		
+		
+		
+		
+		
+
+		//keyboard toggle between birdseye view and street view
+		document.addEventListener('keydown', function(event) {
+			//return (enter) key
+			if(event.keyCode == 13) {
+				birdseye = !birdseye
+				//console.log(birdseye)
+			}
+		});
+
+		//start game loop below
+		loop()
+	}
+
+
+
+	//game loop 
+	function loop() {
+		
+
+		for (let coin of coins) {
+					coin.angle = coin.angle + 1
+					coin.obj.setAttribute("rotation", `0 ${coin.angle} 0`)
+					coin.disappears()
+				}
+
+
+		special_enemy.followsYou()
+		special_enemy.resetsYou()
+
+		
+		for (let door of doors) {
+			door.lift()
+	}	
+
+		for (let wall of walls) {
+			wall.blocksYou()	
+		}
+
+
+		if (coins.every(coin => coin.collected==true)) {
+				    camera_final_x = cameraPos.x
+				    camera_final_z = cameraPos.z
+				    game_over()
+				    return
+				}
+				
+		//mobile device: MOVE FORWARD
+				if (touchingNow == true) {
+					let angle = camera.getAttribute("rotation") 
+					let changeX = 0.25 * Math.sin(angle.y * Math.PI / 180)
+					let changeZ = 0.25 * Math.cos(angle.y * Math.PI / 180) 
+					cameraPos.x -= changeX/4; 
+					cameraPos.z -= changeZ/4; 
+				}
+			
+
+
+		for (let enemy of enemies) {
+			enemy.moves()
+			enemy.resetsYou()
+		}
+
+  	  	//text.setAttribute("value", `${Math.round(cameraPos.x)} , ${Math.round(cameraPos.z)}`)
+
+
+
+		if (birdseye==true) {
+			//position and rotate camera to a view from above
+			camera.setAttribute("position", `${cameraPos.x} 14 ${cameraPos.z}`)
+			camera.components["look-controls"].pitchObject.rotation.x = -Math.PI/2
+			camera.setAttribute("look-controls", "mouseEnabled:false")
+		}
+		else if (birdseye==false) {
+			//position and rotate camera back into street view
+			camera.setAttribute("position", `${cameraPos.x} 1.6 ${cameraPos.z}`)
+			camera.components["look-controls"].pitchObject.rotation.x = 0
+			camera.setAttribute("look-controls", "mouseEnabled:true")
+		}
+
+		setTimeout(loop, 10)
+
+	}
+
+
+		function game_over() {
+		  cameraPos.x = camera_final_x
+		  cameraPos.z = camera_final_z
+	 	  text.setAttribute("value", "Congrats!")
+  
+		  setTimeout(game_over, 10)
+		}
+
+
+
+	//TYPES OF OBJECTS
+
+	class Wall {
+		constructor(x, z, width, length, color) {
+			this.x = x
+			this.z = z
+			this.width = width
+			this.length = length
+			this.obj = document.createElement("a-box")
+			this.obj.setAttribute("scale", `${width} 2 ${length}`)
+			this.obj.setAttribute("position", `${x} 1 ${z}`)
+			this.obj.setAttribute("color", color)
+
+			scene.append(this.obj)
+		}
+
+		blocksYou() {
+			let bump = 0.45
+
+			//z direction blocking
+			if (cameraPos.x < this.x + this.width / 2 && cameraPos.x > this.x - this.width / 2) {
+				if (cameraPos.z < this.z + this.length / 2 + bump && cameraPos.z > this.z + this.length / 2) {
+					camera.setAttribute("position", { x: cameraPos.x, y: cameraPos.y, z: cameraPos.z + bump })
+				}
+				else if (cameraPos.z < this.z - this.length / 2 && cameraPos.z > this.z - this.length / 2 - bump) {
+					camera.setAttribute("position", { x: cameraPos.x, y: cameraPos.y, z: cameraPos.z - bump })
+				}
+			}
+
+			//x direction blocking 
+			if (cameraPos.z < this.z + this.length / 2 && cameraPos.z > this.z - this.length / 2) {
+				if (cameraPos.x < this.x + this.width / 2 + bump && cameraPos.x > this.x + this.width / 2) {
+					camera.setAttribute("position", { x: cameraPos.x + bump, y: cameraPos.y, z: cameraPos.z })
+				}
+				else if (cameraPos.x < this.x - this.width / 2 && cameraPos.x > this.x - this.width / 2 - bump) {
+					camera.setAttribute("position", { x: cameraPos.x - bump, y: cameraPos.y, z: cameraPos.z })
+				}
+			}
+		}
+	}
+
+
+
+
+	class Door {
+	  constructor(x,z,width,length,color) {
+	    this.x = x
+	    this.z = z
+	    this.width = width
+	    this.length = length
+	    this.obj = document.createElement("a-box")
+	    this.obj.setAttribute("scale", `${width} 2 ${length}`)
+	    this.obj.setAttribute("position", `${x} 1 ${z}`)
+	    this.obj.setAttribute("color", color)
+	    scene.append(this.obj)
+	  }
+
+	  lift() {
+	    let bump = 1.75
+    
+	    //z direction lifting
+	    if (cameraPos.x<this.x+this.width/2 && cameraPos.x>this.x-this.width/2 && (cameraPos.z<this.z+this.length/2+bump && cameraPos.z>this.z+this.length/2 || cameraPos.z<this.z-this.length/2 && cameraPos.z>this.z-this.length/2-bump))    {
+
+	      if (this.obj.object3D.position.y < 4) {
+	        this.obj.object3D.position.y += 0.1
+	      }
+
+	    }
+      
+	    //x direction lifting 
+	    else if (cameraPos.z<this.z+this.length/2 && cameraPos.z>this.z-this.length/2 && ((cameraPos.x<this.x+this.width/2+bump && cameraPos.x>this.x+this.width/2) || (cameraPos.x<this.x-this.width/2 && cameraPos.x>this.x-this.width/2-bump)))     {
+	      if (this.obj.object3D.position.y < 4) {
+	        this.obj.object3D.position.y += 0.1
+	      }
+	    }
+
+	    //falling back down
+	    else {
+	        if (this.obj.object3D.position.y > 1) {
+	          this.obj.object3D.position.y -= 0.1
+	        }
+	    }
+
+	  }
+
+	}
+
+
+
+
+	class Enemy {
+		constructor(x,z,v,direction,range,rotation) {
+			this.x = x
+			this.z = z
+			this.originalX = x
+			this.originalZ = z
+			this.width = 0.25
+			this.length = 0.25
+			this.velocity = v
+			this.direction = direction
+			this.range = range
+			this.rotation = rotation
+			//this.obj = document.createElement("a-box")
+			this.obj = document.createElement("a-entity")
+			const body = document.createElement("a-cylinder")
+			body.setAttribute("color", "rgb(155,100,100)")
+			body.setAttribute("scale", `${this.width} 1.5 ${this.length}`)
+			const leftEye = document.createElement("a-sphere")
+			leftEye.setAttribute("color", "rgb(0,0,0)")
+			leftEye.setAttribute("scale", `0.05 0.05 0.05`)
+			leftEye.setAttribute("position", `0.1 0.5 0.25`)
+			const rightEye = document.createElement("a-sphere")
+			rightEye.setAttribute("color", "rgb(0,0,0)")
+			rightEye.setAttribute("scale", `0.05 0.05 0.05`)
+			rightEye.setAttribute("position", `-0.1 0.5 0.25`)
+			const eyebrows = document.createElement("a-circle")
+			eyebrows.setAttribute("color", "rgb(0,0,0)")
+			eyebrows.setAttribute("scale", `0.15 0.1 0.2`)
+			eyebrows.setAttribute("rotation", "20 0 0")
+			eyebrows.setAttribute("position", `0 0.25 0.22`)
+			this.obj.appendChild(body)
+			this.obj.appendChild(leftEye)
+			this.obj.appendChild(rightEye)
+			this.obj.appendChild(eyebrows)
+			this.obj.setAttribute("rotation", `0 ${this.rotation} 0`)
+			this.obj.setAttribute("position", `${this.x} 0.75 ${this.z}`)
+			//this.obj.setAttribute("src", "evil.png")
+			//this.obj.setAttribute("color", "rgb(155,100,100)")
+			scene.append(this.obj)
+		}
+
+
+	    followsYou() {
+	      let dx = cameraPos.x - this.x;
+	      let dz = cameraPos.z - this.z;
+	      let speed = 0.01
+
+	      this.x += speed*dx
+	      this.z += speed*dz
+	      this.obj.setAttribute("position", `${this.x} 0.75 ${this.z}`)
+
+	      this.rotation = Math.atan(dx / dz)
+
+	      if (dz < 0) {
+	        this.rotation += Math.PI
+	      }
+		  
+		  this.obj.object3D.rotation.y = this.rotation;
+
+	    }
+
+
+
+
+		moves() {
+			if (this.direction == "x") { 
+			  this.x = this.x + this.velocity
+			  if (this.x > this.originalX + this.range/2) {
+				  this.velocity = this.velocity * -1
+			  }
+			  else if (this.x < this.originalX - this.range/2) {
+				  this.velocity = this.velocity * -1
+			  }
+			}
+			else if (this.direction == "z") { 
+			  this.z = this.z + this.velocity
+			  if (this.z > this.originalZ + this.range/2) {
+				  this.velocity = this.velocity * -1
+			  }
+			  else if (this.z < this.originalZ - this.range/2) {
+				  this.velocity = this.velocity * -1
+			  }
+			}
+			this.obj.setAttribute("position", `${this.x} 0.75 ${this.z}`)
+		}
+
+		resetsYou() {
+			let bump = 0.25
+
+			//z direction reset
+			if (cameraPos.x<this.x+this.width/2 && cameraPos.x>this.x-this.width/2) {
+				if (cameraPos.z<this.z+this.length/2+bump && cameraPos.z>this.z+this.length/2) {
+					camera.setAttribute("position", {x:originalX, y:cameraPos.y, z:originalZ})
+					reactToEnemy()
+				}
+				else if (cameraPos.z<this.z-this.length/2 && cameraPos.z>this.z-this.length/2-bump) {
+					camera.setAttribute("position", {x:originalX, y:cameraPos.y, z:originalZ})
+					reactToEnemy()
+				}
+			}
+
+			//x direction reset 
+			if (cameraPos.z<this.z+this.length/2 && cameraPos.z>this.z-this.length/2) {
+				if (cameraPos.x<this.x+this.width/2+bump && cameraPos.x>this.x+this.width/2) {
+					camera.setAttribute("position", {x:originalX, y:cameraPos.y, z:originalZ})
+					reactToEnemy()
+				}
+				else if (cameraPos.x<this.x-this.width/2 && cameraPos.x>this.x-this.width/2-bump) {
+					camera.setAttribute("position", {x:originalX, y:cameraPos.y, z:originalZ})
+					reactToEnemy()
+				}
+			}
+
+		}
+
+	}
+
+	function reactToEnemy() {
+	    for (let coin of coins) {
+				coin.obj.setAttribute("scale", `${coin.originalWidth} ${coin.originalHeight} ${coin.originalLength}`)
+				coin.collected = false
+	        }
+		text.setAttribute("value", "ouch!")
+		setTimeout(function(){
+			text.setAttribute("value", "")
+		}, 500);
+	}
+
+
+	class Coin {
+			constructor(x,z) {
+				this.x = x
+				this.z = z
+				this.originalX = x
+				this.originalZ = z
+				this.width = 0.25
+				this.height = 0.25
+				this.length = 0.25
+				this.originalWidth = this.width
+				this.originalHeight = this.height
+				this.originalLength = this.length
+				this.angle = 0
+				this.collected = false 
+				this.obj = document.createElement("a-torus")
+				this.obj.setAttribute("scale", `${this.width} ${this.height} ${this.length}`)
+				this.obj.setAttribute("position", `${this.x} 1.0 ${this.z}`)
+				this.obj.setAttribute("color", "rgb(255,255,0)")
+				//this.obj.setAttribute("src", "coin.png")
+				scene.append(this.obj)
+			}
+
+			disappears() {
+				let bump = 0.25
+
+				//z direction disappearance
+				if (cameraPos.x<this.x+this.width/2 && cameraPos.x>this.x-this.width/2 && this.collected==false) {
+					if (cameraPos.z<this.z+this.length/2+bump && cameraPos.z>this.z+this.length/2) {
+						this.obj.setAttribute("scale", `0 0 0`)
+						this.collected = true
+						reactToCoin()
+					}
+					else if (cameraPos.z<this.z-this.length/2 && cameraPos.z>this.z-this.length/2-bump) {
+						this.obj.setAttribute("scale", `0 0 0`)
+						this.collected = true
+						reactToCoin()
+					}
+				}
+
+				//x direction disappearance
+				if (cameraPos.z<this.z+this.length/2 && cameraPos.z>this.z-this.length/2 && this.collected==false) {
+					if (cameraPos.x<this.x+this.width/2+bump && cameraPos.x>this.x+this.width/2) {
+						this.obj.setAttribute("scale", `0 0 0`)
+						this.collected = true
+						reactToCoin()
+					}
+					else if (cameraPos.x<this.x-this.width/2 && cameraPos.x>this.x-this.width/2-bump) {
+						this.obj.setAttribute("scale", `0 0 0`)
+						this.collected = true
+						reactToCoin()
+					}
+				}
+
+			}
+
+		}
+
+		function reactToCoin() {
+			text.setAttribute("value", "got it!")
+			setTimeout(function(){
+				text.setAttribute("value", "")
+			}, 500);
+		}
+
+
+
+
+
+
+	</script>
+  
+</body>
+
+</html>
+
+
